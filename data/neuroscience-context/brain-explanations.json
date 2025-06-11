@@ -1,0 +1,361 @@
+{
+  "neural_foundations": {
+    "cognitive_dimensions": {
+      "texture": {
+        "brain_regions": [
+          "Somatosensory cortex (SI and SII)",
+          "Posterior parietal cortex",
+          "Insular cortex",
+          "Orbitofrontal cortex"
+        ],
+        "neural_mechanisms": {
+          "primary": "Tactile processing networks that extend to abstract information 'feel'",
+          "secondary": "Cross-modal mapping between physical texture and information structure",
+          "plasticity": "Somatosensory-cognitive integration strengthens with repeated exposure"
+        },
+        "research_basis": {
+          "citation": "Lederman, S. J., & Klatzky, R. L. (2009). Haptic perception: A tutorial. Attention, Perception, & Psychophysics, 71(7), 1439-1459.",
+          "finding": "Tactile processing networks show extensive connectivity with higher-order cognitive regions",
+          "implications": "Information texture preferences may reflect individual differences in somatosensory-cognitive integration"
+        },
+        "neuroplasticity_potential": {
+          "high": "Somatosensory cortex shows high plasticity throughout life",
+          "mechanisms": ["Synaptic strengthening", "Cortical remapping", "Cross-modal recruitment"],
+          "timeline": "2-8 weeks for significant changes in tactile-cognitive associations"
+        }
+      },
+      "temperature": {
+        "brain_regions": [
+          "Anterior cingulate cortex (ACC)",
+          "Insular cortex",
+          "Hypothalamus",
+          "Prefrontal cortex"
+        ],
+        "neural_mechanisms": {
+          "primary": "Emotional regulation networks that modulate cognitive 'temperature'",
+          "secondary": "Arousal and motivation systems affecting learning intensity",
+          "plasticity": "Emotional-cognitive coupling strengthens with practice"
+        },
+        "research_basis": {
+          "citation": "Kensinger, E. A. (2009). Remembering the details: Effects of emotion. Emotion Review, 1(2), 99-113.",
+          "finding": "Emotional arousal enhances memory consolidation and learning",
+          "implications": "Temperature preferences reflect optimal arousal states for individual learning"
+        },
+        "neuroplasticity_potential": {
+          "moderate": "Emotional regulation circuits show moderate plasticity",
+          "mechanisms": ["Amygdala-prefrontal connectivity", "Stress response adaptation", "Motivational pathway optimization"],
+          "timeline": "4-12 weeks for emotional regulation improvements"
+        }
+      },
+      "ecosystem": {
+        "brain_regions": [
+          "Hippocampus",
+          "Parahippocampal cortex",
+          "Angular gyrus",
+          "Default mode network"
+        ],
+        "neural_mechanisms": {
+          "primary": "Spatial navigation and memory networks applied to conceptual organization",
+          "secondary": "Hierarchical processing and semantic network organization",
+          "plasticity": "Hippocampal-neocortical connections strengthen with conceptual mapping practice"
+        },
+        "research_basis": {
+          "citation": "Bellmund, J. L., et al. (2018). Navigating cognition: Spatial codes for human thinking. Science, 362(6415), eaat6766.",
+          "finding": "Brain uses spatial navigation mechanisms for abstract concept organization",
+          "implications": "Ecosystem preferences reflect individual differences in spatial-conceptual mapping"
+        },
+        "neuroplasticity_potential": {
+          "very_high": "Hippocampus shows exceptional plasticity and neurogenesis",
+          "mechanisms": ["Neurogenesis", "Synaptic plasticity", "Network reorganization"],
+          "timeline": "1-6 weeks for spatial-conceptual mapping improvements"
+        }
+      },
+      "temporal": {
+        "brain_regions": [
+          "Suprachiasmatic nucleus",
+          "Cerebellum",
+          "Basal ganglia",
+          "Prefrontal cortex"
+        ],
+        "neural_mechanisms": {
+          "primary": "Circadian and interval timing networks governing learning rhythms",
+          "secondary": "Motor timing systems applied to cognitive pacing",
+          "plasticity": "Timing networks adapt to consistent training schedules"
+        },
+        "research_basis": {
+          "citation": "Merchant, H., et al. (2013). Neural basis of the perception and estimation of time. Annual Review of Neuroscience, 36, 313-336.",
+          "finding": "Multiple timing systems contribute to temporal processing and learning optimization",
+          "implications": "Temporal preferences reflect individual chronobiological and cognitive timing patterns"
+        },
+        "neuroplasticity_potential": {
+          "moderate": "Timing networks show adaptation to regular training patterns",
+          "mechanisms": ["Circadian entrainment", "Cerebellar adaptation", "Prefrontal optimization"],
+          "timeline": "2-6 weeks for timing pattern optimization"
+        }
+      },
+      "spatial": {
+        "brain_regions": [
+          "Parietal cortex",
+          "Retrosplenial cortex",
+          "Precuneus",
+          "Frontal eye fields"
+        ],
+        "neural_mechanisms": {
+          "primary": "Visuospatial working memory and mental rotation networks",
+          "secondary": "Spatial attention and coordinate transformation systems",
+          "plasticity": "Spatial processing networks show high plasticity with training"
+        },
+        "research_basis": {
+          "citation": "Newcombe, N. S., & Shipley, T. F. (2015). Thinking about spatial thinking. In The Cambridge handbook of visuospatial thinking (pp. 67-95).",
+          "finding": "Spatial thinking underlies many cognitive abilities and shows trainability",
+          "implications": "Spatial preferences reflect individual differences in visuospatial processing efficiency"
+        },
+        "neuroplasticity_potential": {
+          "very_high": "Spatial networks show robust plasticity across lifespan",
+          "mechanisms": ["White matter integrity", "Network connectivity", "Processing efficiency"],
+          "timeline": "1-4 weeks for spatial processing improvements"
+        }
+      }
+    },
+    "cross_modal_integration": {
+      "multisensory_hubs": [
+        "Superior temporal sulcus (STS)",
+        "Intraparietal sulcus (IPS)", 
+        "Ventral premotor cortex",
+        "Posterior superior temporal gyrus"
+      ],
+      "integration_mechanisms": {
+        "temporal_binding": "Synchronous neural oscillations bind cross-modal information",
+        "spatial_convergence": "Convergence zones integrate spatially aligned inputs",
+        "predictive_coding": "Top-down predictions enhance cross-modal integration",
+        "attention_modulation": "Attention gates and enhances cross-modal binding"
+      },
+      "research_basis": {
+        "citation": "Driver, J., & Noesselt, T. (2008). Multisensory interplay reveals crossmodal influences on 'sensory-specific' brain regions. Current Biology, 18(6), R175-R185.",
+        "finding": "All sensory areas show cross-modal influences, supporting integrated processing",
+        "implications": "Cross-modal training can enhance both individual modalities and integration"
+      }
+    }
+  },
+  "neuroplasticity_mechanisms": {
+    "synaptic_plasticity": {
+      "long_term_potentiation": {
+        "description": "Strengthening of synaptic connections through repeated activation",
+        "timeline": "Minutes to hours for induction, days to weeks for maintenance",
+        "relevance": "Underlies formation of new cognitive associations and skill acquisition"
+      },
+      "long_term_depression": {
+        "description": "Weakening of synaptic connections to eliminate inefficient pathways",
+        "timeline": "Hours to days for pruning of unused connections",
+        "relevance": "Allows refinement of cognitive networks and elimination of interference"
+      },
+      "homeostatic_plasticity": {
+        "description": "Global scaling of synaptic strength to maintain network stability",
+        "timeline": "Days to weeks for network rebalancing",
+        "relevance": "Prevents runaway excitation during intensive training periods"
+      }
+    },
+    "structural_plasticity": {
+      "dendritic_sprouting": {
+        "description": "Growth of new dendritic branches to increase connectivity",
+        "timeline": "Days to weeks for new branch formation",
+        "relevance": "Increases capacity for new learning and cross-modal connections"
+      },
+      "axonal_remodeling": {
+        "description": "Changes in axonal arbors to optimize information flow",
+        "timeline": "Weeks to months for significant remodeling",
+        "relevance": "Improves efficiency of cognitive networks and cross-regional communication"
+      },
+      "myelination": {
+        "description": "Addition of myelin sheaths to increase conduction speed",
+        "timeline": "Months to years for activity-dependent myelination",
+        "relevance": "Enhances processing speed and timing precision in cognitive networks"
+      }
+    },
+    "network_plasticity": {
+      "functional_connectivity": {
+        "description": "Strengthening of coordinated activity between brain regions",
+        "timeline": "Days to weeks for connectivity changes",
+        "relevance": "Improves coordination between different cognitive systems"
+      },
+      "network_topology": {
+        "description": "Reorganization of network architecture for optimal information flow",
+        "timeline": "Weeks to months for topological changes",
+        "relevance": "Optimizes cognitive efficiency and reduces processing demands"
+      },
+      "critical_periods": {
+        "description": "Windows of enhanced plasticity for specific types of learning",
+        "timeline": "Varies by system, but plasticity remains throughout life",
+        "relevance": "Optimal timing for certain types of cognitive training"
+      }
+    }
+  },
+  "training_protocols": {
+    "mathematical_visualization": {
+      "neural_targets": [
+        "Parietal cortex (mathematical reasoning)",
+        "Fusiform cortex (visual processing)",
+        "Angular gyrus (number-space mapping)",
+        "Prefrontal cortex (working memory)"
+      ],
+      "training_phases": {
+        "phase_1": {
+          "duration": "2-4 weeks",
+          "focus": "Single modality strengthening",
+          "neural_changes": "Increased activation in modality-specific regions",
+          "exercises": ["Pure numerical training", "Spatial rotation tasks", "Color discrimination"]
+        },
+        "phase_2": {
+          "duration": "4-8 weeks", 
+          "focus": "Cross-modal pairing",
+          "neural_changes": "Strengthened connections between modality regions",
+          "exercises": ["Number-space mapping", "Color-math associations", "Spatial-numerical problems"]
+        },
+        "phase_3": {
+          "duration": "8+ weeks",
+          "focus": "Integrated problem solving",
+          "neural_changes": "Optimized network efficiency and automaticity",
+          "exercises": ["Complex multi-modal problems", "Transfer tasks", "Real-world applications"]
+        }
+      },
+      "neuroplasticity_optimization": {
+        "spacing_effects": "Distributed practice enhances long-term retention",
+        "interleaving": "Mixed practice improves transfer and flexibility", 
+        "difficulty_progression": "Gradual increase maintains optimal challenge level",
+        "feedback_timing": "Immediate feedback for skill acquisition, delayed for transfer"
+      }
+    },
+    "synesthetic_training": {
+      "neural_targets": [
+        "Fusiform cortex (color processing)",
+        "Superior parietal cortex (binding)",
+        "Temporal cortex (consistency)",
+        "Frontal cortex (association control)"
+      ],
+      "consistency_training": {
+        "objective": "Develop stable cross-modal associations",
+        "method": "Repeated association testing with feedback",
+        "neural_mechanism": "Strengthening of specific cross-modal pathways",
+        "timeline": "2-6 weeks for measurable consistency improvements"
+      },
+      "association_strengthening": {
+        "objective": "Increase vividness and automaticity of associations",
+        "method": "Intensity training with graduated difficulty",
+        "neural_mechanism": "Enhanced activation in association regions",
+        "timeline": "1-3 weeks for association strengthening"
+      },
+      "transfer_training": {
+        "objective": "Apply synesthetic associations to learning tasks",
+        "method": "Memory and creativity tasks using associations",
+        "neural_mechanism": "Integration with memory and executive networks",
+        "timeline": "4-8 weeks for functional transfer"
+      }
+    },
+    "cognitive_dimension_training": {
+      "texture_enhancement": {
+        "focus": "Improving information texture sensitivity",
+        "methods": ["Tactile-cognitive mapping", "Information texture discrimination", "Cross-modal texture training"],
+        "neural_targets": "Somatosensory-cognitive integration pathways",
+        "expected_timeline": "2-6 weeks for texture sensitivity improvements"
+      },
+      "temperature_optimization": {
+        "focus": "Developing optimal emotional-cognitive regulation",
+        "methods": ["Arousal regulation training", "Emotional state optimization", "Temperature-performance mapping"],
+        "neural_targets": "Emotion-cognition integration networks",
+        "expected_timeline": "4-8 weeks for emotional regulation improvements"
+      },
+      "ecosystem_development": {
+        "focus": "Enhancing conceptual organization abilities",
+        "methods": ["Spatial-conceptual mapping", "Hierarchical organization training", "Network thinking exercises"],
+        "neural_targets": "Hippocampal-neocortical memory networks", 
+        "expected_timeline": "1-4 weeks for organizational improvements"
+      },
+      "temporal_synchronization": {
+        "focus": "Optimizing learning rhythm and timing",
+        "methods": ["Circadian optimization", "Interval training", "Temporal pattern recognition"],
+        "neural_targets": "Timing networks and circadian systems",
+        "expected_timeline": "2-6 weeks for timing optimization"
+      },
+      "spatial_enhancement": {
+        "focus": "Strengthening spatial-cognitive processing",
+        "methods": ["Mental rotation training", "Spatial working memory", "3D visualization exercises"],
+        "neural_targets": "Parietal-frontal spatial networks",
+        "expected_timeline": "1-3 weeks for spatial improvements"
+      }
+    }
+  },
+  "individual_differences": {
+    "genetic_factors": {
+      "COMT_gene": {
+        "role": "Dopamine metabolism in prefrontal cortex",
+        "learning_impact": "Affects working memory and cognitive flexibility",
+        "training_implications": "Val/Val individuals may need different training intensities"
+      },
+      "BDNF_gene": {
+        "role": "Brain-derived neurotrophic factor production",
+        "learning_impact": "Influences neuroplasticity and learning rate",
+        "training_implications": "Met carriers may show different plasticity timelines"
+      },
+      "CACNA1C_gene": {
+        "role": "Calcium channel function affecting synaptic plasticity",
+        "learning_impact": "Influences memory formation and consolidation",
+        "training_implications": "May affect optimal training schedules and intensities"
+      }
+    },
+    "developmental_factors": {
+      "critical_periods": {
+        "language": "Early childhood shows highest plasticity for language-related skills",
+        "spatial": "Spatial skills show plasticity throughout development",
+        "mathematical": "Mathematical reasoning develops progressively through adolescence"
+      },
+      "experience_dependent": {
+        "musical_training": "Enhances auditory-motor integration and temporal processing",
+        "bilingualism": "Strengthens cognitive control and cross-modal flexibility",
+        "physical_activity": "Promotes overall brain health and plasticity"
+      }
+    },
+    "cognitive_styles": {
+      "field_dependence": {
+        "description": "Tendency to perceive parts vs. wholes",
+        "neural_basis": "Parietal-frontal network efficiency",
+        "training_implications": "Field-independent individuals may benefit from detail-focused training"
+      },
+      "cognitive_flexibility": {
+        "description": "Ability to switch between different cognitive sets",
+        "neural_basis": "Prefrontal cortex and anterior cingulate function",
+        "training_implications": "High flexibility individuals may benefit from varied training approaches"
+      },
+      "processing_speed": {
+        "description": "Speed of cognitive operations",
+        "neural_basis": "White matter integrity and network efficiency",
+        "training_implications": "Slower processors may need longer training periods but show equivalent outcomes"
+      }
+    }
+  },
+  "optimization_principles": {
+    "personalization": {
+      "assessment_driven": "Use individual cognitive profiles to tailor training protocols",
+      "adaptive_difficulty": "Continuously adjust training difficulty based on performance",
+      "modality_matching": "Begin with stronger modalities and gradually integrate weaker ones",
+      "preference_accommodation": "Respect individual learning preferences while encouraging growth"
+    },
+    "neuroplasticity_maximization": {
+      "optimal_challenge": "Maintain training difficulty in the zone of proximal development",
+      "spaced_repetition": "Use expanding intervals to enhance long-term retention",
+      "interleaved_practice": "Mix different skills to improve transfer and flexibility",
+      "sleep_optimization": "Ensure adequate sleep for memory consolidation"
+    },
+    "transfer_enhancement": {
+      "varied_contexts": "Practice skills in multiple contexts to enhance transfer",
+      "metacognitive_training": "Develop awareness of when and how to apply skills",
+      "real_world_application": "Connect training to authentic tasks and problems",
+      "progressive_complexity": "Gradually increase task complexity and integration demands"
+    },
+    "motivation_sustaining": {
+      "autonomy_support": "Provide choices and control over training parameters",
+      "competence_building": "Ensure regular experiences of success and progress",
+      "purpose_connection": "Connect training to meaningful personal goals",
+      "social_support": "Incorporate collaborative and competitive elements as appropriate"
+    }
+  }
+}

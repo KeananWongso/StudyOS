@@ -1,0 +1,467 @@
+{
+  "texture": {
+    "name": "Information Texture",
+    "shortDescription": "How information 'feels' to you",
+    "longDescription": "This dimension explores how you prefer information to be structured and presented. Some people need information that feels smooth and connected, while others prefer it rough and grippable. Some like it flexible and shifting, while others want to actively mold and shape it.",
+    "icon": "🌊",
+    "color": "#ff9a9e",
+    "patterns": {
+      "smooth_flowing": {
+        "name": "Smooth & Flowing",
+        "description": "You prefer seamless, connected information that flows logically from one concept to the next, like a clear stream of ideas.",
+        "characteristics": [
+          "Enjoys narrative-based learning",
+          "Prefers sequential, logical progression",
+          "Values smooth transitions between concepts",
+          "Benefits from continuous, uninterrupted information flow"
+        ],
+        "learningStrategies": [
+          "Use story-based learning materials",
+          "Follow guided learning paths with clear progression",
+          "Create concept maps that show logical connections",
+          "Prefer courses with smooth, narrative structure"
+        ],
+        "challenges": [
+          "May struggle with fragmented information",
+          "Difficulty with abrupt topic changes",
+          "Can be overwhelmed by too many disconnected details"
+        ]
+      },
+      "rough_grippable": {
+        "name": "Rough & Grippable",
+        "description": "You need concrete, tangible concepts with clear boundaries and specific details that you can mentally grasp and hold onto.",
+        "characteristics": [
+          "Prefers concrete facts and specific details",
+          "Needs clear, defined concepts",
+          "Values practical, applicable information",
+          "Benefits from structured, discrete learning units"
+        ],
+        "learningStrategies": [
+          "Break information into specific, manageable chunks",
+          "Use flashcards with concrete facts",
+          "Focus on practical examples and case studies",
+          "Create lists and bullet points for key concepts"
+        ],
+        "challenges": [
+          "May struggle with abstract concepts",
+          "Difficulty with ambiguous or fluid ideas",
+          "Can be overwhelmed by too much theoretical content"
+        ]
+      },
+      "sand_shifting": {
+        "name": "Sand & Shifting",
+        "description": "You appreciate flexible, adaptable information that can be viewed from multiple perspectives and adjusted based on context.",
+        "characteristics": [
+          "Enjoys exploring multiple perspectives",
+          "Comfortable with ambiguity and change",
+          "Values contextual flexibility",
+          "Benefits from adaptive learning approaches"
+        ],
+        "learningStrategies": [
+          "Use multi-perspective analysis techniques",
+          "Adapt study methods based on context",
+          "Explore topics from different angles",
+          "Use flexible scheduling and varied approaches"
+        ],
+        "challenges": [
+          "May struggle with rigid structures",
+          "Difficulty with one-size-fits-all approaches",
+          "Can be overwhelmed by too much structure"
+        ]
+      },
+      "clay_moldable": {
+        "name": "Clay & Moldable",
+        "description": "You want to actively shape and transform ideas through hands-on manipulation, experimentation, and creative interaction.",
+        "characteristics": [
+          "Enjoys interactive, hands-on learning",
+          "Prefers to modify and customize information",
+          "Values creative exploration",
+          "Benefits from experimental approaches"
+        ],
+        "learningStrategies": [
+          "Create interactive study materials",
+          "Use mind mapping and concept manipulation",
+          "Engage in project-based learning",
+          "Build models and prototypes of concepts"
+        ],
+        "challenges": [
+          "May struggle with passive learning",
+          "Difficulty with rigid, unchangeable content",
+          "Can be frustrated by limited interaction options"
+        ]
+      }
+    }
+  },
+  "temperature": {
+    "name": "Learning Temperature",
+    "shortDescription": "Your learning energy preferences",
+    "longDescription": "This dimension reveals your emotional and cognitive temperature preferences. Some people learn best in cool, analytical environments, while others need warm, narrative contexts. Some thrive on hot, urgent energy, while others prefer alternating temperatures.",
+    "icon": "🌡️",
+    "color": "#a8edea",
+    "patterns": {
+      "cool_logical": {
+        "name": "Cool & Logical",
+        "description": "You thrive in objective, analytical environments with systematic reasoning and data-driven approaches.",
+        "characteristics": [
+          "Prefers analytical, data-driven content",
+          "Values objective, fact-based information",
+          "Comfortable with abstract reasoning",
+          "Benefits from systematic, logical approaches"
+        ],
+        "learningStrategies": [
+          "Use analytical frameworks and models",
+          "Focus on data and evidence-based content",
+          "Apply systematic problem-solving methods",
+          "Maintain objective, unemotional perspectives"
+        ],
+        "challenges": [
+          "May struggle with highly emotional content",
+          "Difficulty with subjective or personal materials",
+          "Can be overwhelmed by too much narrative context"
+        ]
+      },
+      "warm_narrative": {
+        "name": "Warm & Narrative",
+        "description": "You learn best through stories, emotional connections, and personally meaningful contexts that create human connection.",
+        "characteristics": [
+          "Enjoys story-based learning",
+          "Values personal connection to material",
+          "Prefers contextual, meaningful examples",
+          "Benefits from emotional engagement"
+        ],
+        "learningStrategies": [
+          "Use stories and case studies",
+          "Connect learning to personal experiences",
+          "Focus on human elements and relationships",
+          "Create emotional connections to content"
+        ],
+        "challenges": [
+          "May struggle with purely analytical content",
+          "Difficulty with abstract, impersonal materials",
+          "Can be overwhelmed by too much data without context"
+        ]
+      },
+      "hot_urgent": {
+        "name": "Hot & Urgent",
+        "description": "You're motivated by intensity, immediacy, and high-stakes applications with clear deadlines and competitive elements.",
+        "characteristics": [
+          "Thrives under pressure and deadlines",
+          "Motivated by competition and challenges",
+          "Prefers immediate application opportunities",
+          "Benefits from high-energy environments"
+        ],
+        "learningStrategies": [
+          "Set tight deadlines and challenging goals",
+          "Use competitive learning formats",
+          "Focus on immediate, practical applications",
+          "Create high-stakes practice scenarios"
+        ],
+        "challenges": [
+          "May struggle with slow-paced learning",
+          "Difficulty with extended preparation periods",
+          "Can be overwhelmed by low-pressure environments"
+        ]
+      },
+      "alternating_temp": {
+        "name": "Alternating Temperature",
+        "description": "You benefit from variety in emotional intensity and pacing, switching between different approaches based on context and needs.",
+        "characteristics": [
+          "Enjoys varied approaches and pacing",
+          "Comfortable with changing intensities",
+          "Values flexibility in emotional engagement",
+          "Benefits from mixed learning strategies"
+        ],
+        "learningStrategies": [
+          "Mix intensive and relaxed study periods",
+          "Alternate between different emotional approaches",
+          "Use varied pacing throughout sessions",
+          "Switch between analytical and narrative modes"
+        ],
+        "challenges": [
+          "May struggle with single-approach methods",
+          "Difficulty with rigid emotional consistency",
+          "Can be overwhelmed by monotonous approaches"
+        ]
+      }
+    }
+  },
+  "ecosystem": {
+    "name": "Concept Ecosystem",
+    "shortDescription": "How you organize concepts",
+    "longDescription": "This dimension explores how you mentally organize and relate concepts. Some people see ideas growing organically like a garden, others prefer systematic structures like a city, hierarchical layers like a forest, or deep connections like an ocean.",
+    "icon": "🌳",
+    "color": "#d299c2",
+    "patterns": {
+      "garden_organic": {
+        "name": "Garden & Organic",
+        "description": "You see natural, evolving connections between ideas that grow organically and develop unexpected relationships.",
+        "characteristics": [
+          "Enjoys discovery-based learning",
+          "Values natural progression of ideas",
+          "Comfortable with emergent understanding",
+          "Benefits from organic exploration"
+        ],
+        "learningStrategies": [
+          "Allow for natural discovery and exploration",
+          "Use organic, unstructured learning paths",
+          "Follow curiosity and interest-driven study",
+          "Create flexible, evolving knowledge maps"
+        ],
+        "challenges": [
+          "May struggle with rigid curricula",
+          "Difficulty with forced linear progression",
+          "Can be overwhelmed by too much structure"
+        ]
+      },
+      "city_systems": {
+        "name": "City & Systems",
+        "description": "You prefer organized, systematic relationships with clear functions, defined roles, and structured interactions.",
+        "characteristics": [
+          "Enjoys structured, systematic learning",
+          "Values clear organization and roles",
+          "Prefers defined relationships",
+          "Benefits from systematic frameworks"
+        ],
+        "learningStrategies": [
+          "Use organized, systematic curricula",
+          "Create clear frameworks and structures",
+          "Define roles and relationships explicitly",
+          "Build systematic knowledge architectures"
+        ],
+        "challenges": [
+          "May struggle with unstructured exploration",
+          "Difficulty with ambiguous relationships",
+          "Can be overwhelmed by too much organic growth"
+        ]
+      },
+      "forest_hierarchical": {
+        "name": "Forest & Hierarchical",
+        "description": "You think in structured levels and hierarchies, building from foundational ground level to complex canopy concepts.",
+        "characteristics": [
+          "Prefers layered, hierarchical structures",
+          "Values clear prerequisite relationships",
+          "Comfortable with level-based progression",
+          "Benefits from scaffolded complexity"
+        ],
+        "learningStrategies": [
+          "Build knowledge in clear layers",
+          "Establish strong foundations before advancing",
+          "Use prerequisite-based learning paths",
+          "Create hierarchical concept maps"
+        ],
+        "challenges": [
+          "May struggle with non-linear approaches",
+          "Difficulty with parallel concept development",
+          "Can be overwhelmed by flat information structures"
+        ]
+      },
+      "ocean_depth": {
+        "name": "Ocean & Depth",
+        "description": "You explore deep, far-reaching connections that span vast conceptual distances, like underwater currents connecting distant shores.",
+        "characteristics": [
+          "Enjoys deep, philosophical exploration",
+          "Values far-reaching connections",
+          "Comfortable with complex relationships",
+          "Benefits from profound understanding"
+        ],
+        "learningStrategies": [
+          "Explore deep underlying principles",
+          "Make connections across distant concepts",
+          "Focus on fundamental understanding",
+          "Use contemplative, reflective approaches"
+        ],
+        "challenges": [
+          "May struggle with surface-level learning",
+          "Difficulty with rapid, shallow coverage",
+          "Can be overwhelmed by superficial approaches"
+        ]
+      }
+    }
+  },
+  "temporal": {
+    "name": "Learning Rhythms",
+    "shortDescription": "Your natural learning rhythms",
+    "longDescription": "This dimension reveals your preferred pacing and timing patterns. Some people work best with steady, tidal rhythms, others prefer seasonal cycles of deep work, lightning-burst intensity, or heartbeat-like maintenance patterns.",
+    "icon": "⏰",
+    "color": "#89f7fe",
+    "patterns": {
+      "tidal_steady": {
+        "name": "Tidal & Steady",
+        "description": "You work best with consistent, regular patterns and predictable learning rhythms, like steady ocean tides.",
+        "characteristics": [
+          "Prefers consistent daily routines",
+          "Values predictable schedules",
+          "Comfortable with steady progress",
+          "Benefits from regular patterns"
+        ],
+        "learningStrategies": [
+          "Maintain consistent daily study schedules",
+          "Use regular, predictable time blocks",
+          "Build sustainable long-term habits",
+          "Create steady progress tracking systems"
+        ],
+        "challenges": [
+          "May struggle with irregular schedules",
+          "Difficulty with intensive bursts",
+          "Can be overwhelmed by unpredictable timing"
+        ]
+      },
+      "seasonal_deep": {
+        "name": "Seasonal & Deep",
+        "description": "You prefer cycles of extensive preparation followed by periods of intensive learning and growth, like natural seasons.",
+        "characteristics": [
+          "Enjoys intensive learning periods",
+          "Values extended preparation phases",
+          "Comfortable with cyclical patterns",
+          "Benefits from deep immersion"
+        ],
+        "learningStrategies": [
+          "Plan intensive learning periods",
+          "Use cyclical study schedules",
+          "Allow for extended preparation phases",
+          "Focus on deep, immersive experiences"
+        ],
+        "challenges": [
+          "May struggle with continuous demands",
+          "Difficulty with constant low-level effort",
+          "Can be overwhelmed by non-cyclical approaches"
+        ]
+      },
+      "lightning_burst": {
+        "name": "Lightning & Burst",
+        "description": "You learn through sudden insights and intense focus sessions, capitalizing on moments of high energy and breakthrough understanding.",
+        "characteristics": [
+          "Thrives on sudden insights",
+          "Values intense focus periods",
+          "Comfortable with irregular patterns",
+          "Benefits from breakthrough moments"
+        ],
+        "learningStrategies": [
+          "Capitalize on high-energy moments",
+          "Use intensive, short-duration sessions",
+          "Be ready to act on sudden insights",
+          "Focus on breakthrough-oriented approaches"
+        ],
+        "challenges": [
+          "May struggle with steady routines",
+          "Difficulty with gradual progression",
+          "Can be overwhelmed by forced regular schedules"
+        ]
+      },
+      "heartbeat_maintenance": {
+        "name": "Heartbeat & Maintenance",
+        "description": "You maintain steady progress with periodic acceleration, balancing regular maintenance with strategic intensification.",
+        "characteristics": [
+          "Enjoys balanced rhythms",
+          "Values both maintenance and acceleration",
+          "Comfortable with pulsed patterns",
+          "Benefits from strategic intensification"
+        ],
+        "learningStrategies": [
+          "Balance regular maintenance with periodic intensity",
+          "Use pulsed learning rhythms",
+          "Maintain steady progress with strategic acceleration",
+          "Create sustainable yet dynamic patterns"
+        ],
+        "challenges": [
+          "May struggle with purely steady or purely intense approaches",
+          "Difficulty with single-speed learning",
+          "Can be overwhelmed by non-pulsed patterns"
+        ]
+      }
+    }
+  },
+  "spatial": {
+    "name": "Mental Construction",
+    "shortDescription": "How you construct knowledge",
+    "longDescription": "This dimension explores how you mentally build and organize new knowledge. Some people build systematically from foundations up, others start with big pictures and work down, use modular approaches, or allow organic flow.",
+    "icon": "🏗️",
+    "color": "#fdbb2d",
+    "patterns": {
+      "foundation_up": {
+        "name": "Foundation Up",
+        "description": "You build knowledge systematically from basic principles to complex applications, ensuring solid foundations before advancing.",
+        "characteristics": [
+          "Prefers systematic skill building",
+          "Values strong foundational knowledge",
+          "Comfortable with prerequisite mastery",
+          "Benefits from progressive complexity"
+        ],
+        "learningStrategies": [
+          "Start with fundamental concepts",
+          "Build complexity gradually",
+          "Ensure mastery before advancing",
+          "Use prerequisite-based learning paths"
+        ],
+        "challenges": [
+          "May struggle with top-down approaches",
+          "Difficulty with big-picture starts",
+          "Can be overwhelmed by complex overviews"
+        ]
+      },
+      "big_picture_down": {
+        "name": "Big Picture Down",
+        "description": "You start with comprehensive overviews and progressively fill in specific details, beginning with the whole before the parts.",
+        "characteristics": [
+          "Enjoys overview-first presentations",
+          "Values big-picture understanding",
+          "Comfortable with top-down design",
+          "Benefits from contextual frameworks"
+        ],
+        "learningStrategies": [
+          "Start with comprehensive overviews",
+          "Use top-down design thinking",
+          "Create conceptual frameworks first",
+          "Fill in details within big-picture context"
+        ],
+        "challenges": [
+          "May struggle with bottom-up approaches",
+          "Difficulty with detail-first learning",
+          "Can be overwhelmed by fragmented starts"
+        ]
+      },
+      "modular": {
+        "name": "Modular",
+        "description": "You learn in independent pieces that can be flexibly combined and connected later, building understanding through component assembly.",
+        "characteristics": [
+          "Enjoys independent learning modules",
+          "Values flexible knowledge assembly",
+          "Comfortable with component-based understanding",
+          "Benefits from parallel learning paths"
+        ],
+        "learningStrategies": [
+          "Use independent learning modules",
+          "Build knowledge components separately",
+          "Connect modules flexibly over time",
+          "Create parallel learning pathways"
+        ],
+        "challenges": [
+          "May struggle with linear sequences",
+          "Difficulty with tightly integrated curricula",
+          "Can be overwhelmed by forced connections"
+        ]
+      },
+      "flowing": {
+        "name": "Flowing",
+        "description": "You allow understanding to develop organically following natural curiosity and interest, letting knowledge emerge naturally.",
+        "characteristics": [
+          "Enjoys organic learning experiences",
+          "Values natural curiosity-driven exploration",
+          "Comfortable with emergent understanding",
+          "Benefits from intuitive progression"
+        ],
+        "learningStrategies": [
+          "Follow natural curiosity and interest",
+          "Allow organic knowledge emergence",
+          "Use intuitive progression paths",
+          "Create flexible, adaptive learning experiences"
+        ],
+        "challenges": [
+          "May struggle with rigid structures",
+          "Difficulty with forced sequences",
+          "Can be overwhelmed by external organization"
+        ]
+      }
+    }
+  }
+}

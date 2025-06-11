@@ -1,0 +1,80 @@
+{
+  "userId": "sample_user_001",
+  "profile": {
+    "name": "Sample User",
+    "email": "sample@example.com",
+    "dateCreated": "2024-01-15T10:30:00Z",
+    "lastUpdated": "2024-01-20T14:45:00Z"
+  },
+  "assessmentHistory": [
+    {
+      "assessmentId": "assessment_001",
+      "timestamp": "2024-01-20T14:45:00Z",
+      "dominantPattern": "visual",
+      "confidence": 85
+    },
+    {
+      "assessmentId": "assessment_002", 
+      "timestamp": "2024-01-15T10:30:00Z",
+      "dominantPattern": "kinesthetic",
+      "confidence": 72
+    }
+  ],
+  "latestResults": {
+    "visual": {
+      "score": 68,
+      "strength": "Strong",
+      "confidence": 85,
+      "description": "You learn best through visual aids like charts, diagrams, written instructions, and seeing information organized spatially."
+    },
+    "auditory": {
+      "score": 45,
+      "strength": "Moderate", 
+      "confidence": 60,
+      "description": "You prefer learning through listening, verbal explanations, discussions, and processing information through sound."
+    },
+    "kinesthetic": {
+      "score": 52,
+      "strength": "Moderate",
+      "confidence": 68,
+      "description": "You learn most effectively through hands-on experience, physical practice, movement, and tactile exploration."
+    },
+    "social": {
+      "score": 35,
+      "strength": "Mild",
+      "confidence": 45,
+      "description": "You thrive in collaborative learning environments, group discussions, and learning through interaction with others."
+    }
+  },
+  "dominantPattern": "visual",
+  "secondaryPattern": "kinesthetic", 
+  "learningProfile": {
+    "type": "visual-kinesthetic",
+    "description": "You have a strong visual learning preference with significant kinesthetic tendencies. This combination suggests you learn best when multiple approaches are used together.",
+    "efficiency": 76,
+    "adaptability": 64
+  },
+  "preferences": {
+    "studyEnvironment": "quiet_organized",
+    "preferredStudyTime": "morning",
+    "sessionDuration": 45,
+    "breakFrequency": 15
+  },
+  "goals": [
+    {
+      "id": "goal_001",
+      "title": "Improve study efficiency",
+      "description": "Use visual learning techniques to increase retention",
+      "status": "in_progress",
+      "created": "2024-01-15T10:30:00Z"
+    }
+  ],
+  "assessmentCount": 2,
+  "lastAssessment": "2024-01-20T14:45:00Z",
+  "statistics": {
+    "totalStudyHours": 120,
+    "averageSessionLength": 42,
+    "preferredLearningMethods": ["visual_aids", "hands_on_practice", "written_notes"],
+    "improvementAreas": ["auditory_processing", "group_collaboration"]
+  }
+}

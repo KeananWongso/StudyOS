@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Pattern Assessment System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Learning Pattern Assessment</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#assessment">Assessment</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#results">Results</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section">
+            <div class="container">
+                <h2>Welcome to Learning Pattern Assessment</h2>
+                <p>Discover your unique learning patterns and optimize your study approach.</p>
+                <button id="start-assessment" class="btn-primary">Start Assessment</button>
+            </div>
+        </section>
+
+        <section id="assessment" class="section hidden">
+            <div class="container">
+                <h2>Learning Pattern Assessment</h2>
+                <div id="question-container">
+                    <div class="question-card">
+                        <h3 id="question-text">Loading question...</h3>
+                        <div id="answer-options" class="options-container">
+                            <!-- Options will be populated by JavaScript -->
+                        </div>
+                        <div class="navigation">
+                            <button id="prev-btn" class="btn-secondary" disabled>Previous</button>
+                            <span id="progress">1 / 10</span>
+                            <button id="next-btn" class="btn-secondary">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="section hidden">
+            <div class="container">
+                <h2>Your Profile</h2>
+                <div id="user-profile">
+                    <!-- Profile information will be populated -->
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="section hidden">
+            <div class="container">
+                <h2>Assessment Results</h2>
+                <div id="results-container">
+                    <!-- Results will be populated -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

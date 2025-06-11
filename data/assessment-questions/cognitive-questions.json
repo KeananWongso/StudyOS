@@ -1,0 +1,659 @@
+{
+  "assessment_metadata": {
+    "title": "Learning & Problem-Solving Scenarios",
+    "description": "Discover your natural learning preferences through practical scenarios",
+    "instructions": "Choose the response that feels most natural to you in each situation. There are no right or wrong answers.",
+    "version": "2.0",
+    "scenario_based": true
+  },
+  "questions": [
+    {
+      "id": 1,
+      "scenario": "phone_number",
+      "text": "You need to remember a 10-digit phone number someone just told you. What do you naturally do first?",
+      "category": "memory_strategy",
+      "options": [
+        {
+          "id": "a",
+          "text": "Repeat it out loud with a rhythm or melody",
+          "hidden_dimension": "temporal",
+          "pattern": "rhythm_sequence",
+          "weight": 0.9
+        },
+        {
+          "id": "b", 
+          "text": "Visualize the keypad pattern and finger movements",
+          "hidden_dimension": "spatial",
+          "pattern": "visual_spatial",
+          "weight": 0.85
+        },
+        {
+          "id": "c",
+          "text": "Break it into chunks and create a story",
+          "hidden_dimension": "ecosystem",
+          "pattern": "narrative_connection",
+          "weight": 0.8
+        },
+        {
+          "id": "d",
+          "text": "Write it down immediately to feel secure",
+          "hidden_dimension": "texture",
+          "pattern": "tactile_concrete",
+          "weight": 0.75
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "scenario": "new_skill",
+      "text": "You're about to learn a challenging new skill (like playing guitar). Which environment would help you succeed?",
+      "category": "learning_environment",
+      "options": [
+        {
+          "id": "a",
+          "text": "High-energy music, bright lights, with a tight deadline",
+          "hidden_dimension": "temperature",
+          "pattern": "high_intensity",
+          "weight": 0.9
+        },
+        {
+          "id": "b",
+          "text": "Quiet café with gentle background buzz, no pressure",
+          "hidden_dimension": "temperature", 
+          "pattern": "moderate_ambient",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "Silent library, organized notes, methodical approach",
+          "hidden_dimension": "temperature",
+          "pattern": "low_systematic",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "With friends, lots of discussion and shared energy",
+          "hidden_dimension": "temperature",
+          "pattern": "warm_social",
+          "weight": 0.75
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "scenario": "climate_change",
+      "text": "You're trying to understand how climate change works. How do you naturally approach it?",
+      "category": "complex_concept",
+      "options": [
+        {
+          "id": "a",
+          "text": "Start with one cause and follow the chain reactions",
+          "hidden_dimension": "ecosystem",
+          "pattern": "linear_causal",
+          "weight": 0.7
+        },
+        {
+          "id": "b",
+          "text": "Map out all the interconnected systems first",
+          "hidden_dimension": "ecosystem",
+          "pattern": "web_systems",
+          "weight": 0.95
+        },
+        {
+          "id": "c",
+          "text": "Break it into categories: causes, effects, solutions",
+          "hidden_dimension": "ecosystem",
+          "pattern": "hierarchical_structure",
+          "weight": 0.9
+        },
+        {
+          "id": "d",
+          "text": "Find a real example and work outward from there",
+          "hidden_dimension": "ecosystem",
+          "pattern": "concrete_expansion",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "scenario": "big_project",
+      "text": "You have a big project due in 2 weeks. How do you naturally tackle it?",
+      "category": "project_planning",
+      "options": [
+        {
+          "id": "a",
+          "text": "Work in 25-minute focused sprints with 5-minute breaks",
+          "hidden_dimension": "temporal",
+          "pattern": "interval_bursts",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Set aside long 3-4 hour blocks when I'm in the zone",
+          "hidden_dimension": "temporal",
+          "pattern": "deep_immersion",
+          "weight": 0.9
+        },
+        {
+          "id": "c",
+          "text": "Do a little bit each day, reviewing what I learned",
+          "hidden_dimension": "temporal",
+          "pattern": "steady_accumulation",
+          "weight": 0.8
+        },
+        {
+          "id": "d",
+          "text": "Work when inspiration strikes, trust my natural rhythm",
+          "hidden_dimension": "temporal",
+          "pattern": "intuitive_flow",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "scenario": "ikea_furniture",
+      "text": "You're assembling IKEA furniture. What's your approach?",
+      "category": "construction_method",
+      "options": [
+        {
+          "id": "a",
+          "text": "Follow instructions step-by-step from start to finish",
+          "hidden_dimension": "spatial",
+          "pattern": "sequential_build",
+          "weight": 0.8
+        },
+        {
+          "id": "b",
+          "text": "Look at the final picture first, then figure out how to get there",
+          "hidden_dimension": "spatial",
+          "pattern": "goal_visualization",
+          "weight": 0.85
+        },
+        {
+          "id": "c",
+          "text": "Lay out all pieces and see how they naturally connect",
+          "hidden_dimension": "spatial",
+          "pattern": "holistic_assembly",
+          "weight": 0.9
+        },
+        {
+          "id": "d",
+          "text": "Start building and adjust as problems come up",
+          "hidden_dimension": "spatial",
+          "pattern": "adaptive_construction",
+          "weight": 0.75
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "scenario": "group_project_assignment",
+      "text": "You're assigned to a group project. How do you naturally approach working with your teammates?",
+      "category": "collaboration_style",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create a shared document and organize everyone's responsibilities",
+          "hidden_dimension": "texture",
+          "pattern": "structured_preparation",
+          "weight": 0.8
+        },
+        {
+          "id": "b",
+          "text": "Start brainstorming ideas together and see what emerges",
+          "hidden_dimension": "texture",
+          "pattern": "fluid_expression",
+          "weight": 0.75
+        },
+        {
+          "id": "c",
+          "text": "Assign specific tasks and deadlines to each person",
+          "hidden_dimension": "texture",
+          "pattern": "concrete_points",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "See how everyone works first, then adjust the plan",
+          "hidden_dimension": "texture",
+          "pattern": "responsive_adaptation",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "scenario": "foreign_language",
+      "text": "You're trying to learn a foreign language. What draws you in?",
+      "category": "language_learning",
+      "options": [
+        {
+          "id": "a",
+          "text": "The rhythm and music of how it sounds",
+          "hidden_dimension": "temporal",
+          "pattern": "auditory_rhythm",
+          "weight": 0.9
+        },
+        {
+          "id": "b",
+          "text": "Understanding the culture and stories behind it",
+          "hidden_dimension": "ecosystem",
+          "pattern": "cultural_context",
+          "weight": 0.85
+        },
+        {
+          "id": "c",
+          "text": "The grammar rules and systematic structure",
+          "hidden_dimension": "spatial",
+          "pattern": "systematic_structure",
+          "weight": 0.8
+        },
+        {
+          "id": "d",
+          "text": "Using it immediately in real conversations",
+          "hidden_dimension": "temperature",
+          "pattern": "immediate_application",
+          "weight": 0.85
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "scenario": "cooking_recipe",
+      "text": "When trying a new complex recipe, you prefer to:",
+      "category": "instruction_following",
+      "options": [
+        {
+          "id": "a",
+          "text": "Read it through completely first, then follow exactly",
+          "hidden_dimension": "spatial",
+          "pattern": "systematic_preparation",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Understand the goal and improvise based on what feels right",
+          "hidden_dimension": "texture",
+          "pattern": "intuitive_adaptation",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "Focus on timing - when to start each step",
+          "hidden_dimension": "temporal",
+          "pattern": "timing_coordination",
+          "weight": 0.9
+        },
+        {
+          "id": "d",
+          "text": "Think about how all the flavors will work together",
+          "hidden_dimension": "ecosystem",
+          "pattern": "flavor_integration",
+          "weight": 0.85
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "scenario": "overwhelming_day",
+      "text": "You're having an overwhelming day with too much to do. What helps you most?",
+      "category": "stress_management",
+      "options": [
+        {
+          "id": "a",
+          "text": "Making a detailed list and checking things off",
+          "hidden_dimension": "texture",
+          "pattern": "concrete_progress",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Taking a step back to see the bigger picture",
+          "hidden_dimension": "spatial",
+          "pattern": "perspective_shift",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "Working in focused bursts with breaks",
+          "hidden_dimension": "temporal",
+          "pattern": "burst_recovery",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Talking it through with someone to sort my thoughts",
+          "hidden_dimension": "ecosystem",
+          "pattern": "collaborative_processing",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "scenario": "book_recommendation",
+      "text": "A friend recommends a book to you. What makes you most likely to read it?",
+      "category": "engagement_trigger",
+      "options": [
+        {
+          "id": "a",
+          "text": "They describe the fascinating connections between ideas",
+          "hidden_dimension": "ecosystem",
+          "pattern": "idea_connections",
+          "weight": 0.9
+        },
+        {
+          "id": "b",
+          "text": "It has beautiful, flowing writing that draws you in",
+          "hidden_dimension": "texture",
+          "pattern": "aesthetic_flow",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "It builds understanding step by step logically",
+          "hidden_dimension": "spatial",
+          "pattern": "logical_progression",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "It has an urgent, page-turning quality",
+          "hidden_dimension": "temperature",
+          "pattern": "engaging_intensity",
+          "weight": 0.85
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "scenario": "team_project",
+      "text": "In a team project, you naturally take on the role of:",
+      "category": "team_dynamics",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keeping everyone organized and on schedule",
+          "hidden_dimension": "temporal",
+          "pattern": "time_coordination",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Seeing how different ideas connect and fit together",
+          "hidden_dimension": "ecosystem",
+          "pattern": "synthesis_connection",
+          "weight": 0.9
+        },
+        {
+          "id": "c",
+          "text": "Making sure we have a clear structure and plan",
+          "hidden_dimension": "spatial",
+          "pattern": "structural_planning",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Getting people energized and moving forward",
+          "hidden_dimension": "temperature",
+          "pattern": "energy_motivation",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "scenario": "problem_stuck",
+      "text": "When you're stuck on a problem, what usually helps you break through?",
+      "category": "problem_solving",
+      "options": [
+        {
+          "id": "a",
+          "text": "Walking away and letting my mind wander",
+          "hidden_dimension": "temporal",
+          "pattern": "incubation_processing",
+          "weight": 0.8
+        },
+        {
+          "id": "b",
+          "text": "Drawing diagrams or mapping it out visually",
+          "hidden_dimension": "spatial",
+          "pattern": "visual_mapping",
+          "weight": 0.9
+        },
+        {
+          "id": "c",
+          "text": "Talking through it with someone else",
+          "hidden_dimension": "ecosystem",
+          "pattern": "collaborative_thinking",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Breaking it into smaller, concrete pieces",
+          "hidden_dimension": "texture",
+          "pattern": "granular_breakdown",
+          "weight": 0.85
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "scenario": "news_article",
+      "text": "When reading a complex news article, you find yourself:",
+      "category": "information_processing",
+      "options": [
+        {
+          "id": "a",
+          "text": "Connecting it to other stories and patterns you've noticed",
+          "hidden_dimension": "ecosystem",
+          "pattern": "pattern_recognition",
+          "weight": 0.9
+        },
+        {
+          "id": "b",
+          "text": "Focusing on the concrete facts and evidence",
+          "hidden_dimension": "texture",
+          "pattern": "fact_grounding",
+          "weight": 0.85
+        },
+        {
+          "id": "c",
+          "text": "Following the timeline and sequence of events",
+          "hidden_dimension": "temporal",
+          "pattern": "chronological_tracking",
+          "weight": 0.8
+        },
+        {
+          "id": "d",
+          "text": "Visualizing the bigger picture and implications",
+          "hidden_dimension": "spatial",
+          "pattern": "scope_visualization",
+          "weight": 0.85
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "scenario": "exercise_routine", 
+      "text": "When starting a new exercise routine, what keeps you motivated?",
+      "category": "motivation_maintenance",
+      "options": [
+        {
+          "id": "a",
+          "text": "Seeing measurable progress and tracking improvements",
+          "hidden_dimension": "texture",
+          "pattern": "concrete_feedback",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Finding the right rhythm and timing that feels natural",
+          "hidden_dimension": "temporal",
+          "pattern": "natural_rhythm",
+          "weight": 0.9
+        },
+        {
+          "id": "c",
+          "text": "Understanding how it all fits together for my goals",
+          "hidden_dimension": "ecosystem",
+          "pattern": "holistic_integration",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Having a clear structure and progression plan",
+          "hidden_dimension": "spatial",
+          "pattern": "structured_progression",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "scenario": "explaining_concept",
+      "text": "When explaining a complex concept to someone, you naturally:",
+      "category": "knowledge_sharing",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use analogies and stories to make it relatable",
+          "hidden_dimension": "ecosystem",
+          "pattern": "metaphorical_connection",
+          "weight": 0.9
+        },
+        {
+          "id": "b",
+          "text": "Give concrete examples they can picture",
+          "hidden_dimension": "texture",
+          "pattern": "tangible_examples",
+          "weight": 0.85
+        },
+        {
+          "id": "c",
+          "text": "Build it up step by step from basics",
+          "hidden_dimension": "spatial",
+          "pattern": "scaffolded_building",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Match your pace to their understanding",
+          "hidden_dimension": "temporal",
+          "pattern": "adaptive_pacing",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "scenario": "exam_prep",
+      "text": "You have a major exam in one week. What's your study strategy?",
+      "category": "study_strategy",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create a detailed day-by-day study schedule",
+          "hidden_dimension": "temporal",
+          "pattern": "steady_accumulation",
+          "weight": 0.8
+        },
+        {
+          "id": "b",
+          "text": "Block out long study sessions when I'm most focused",
+          "hidden_dimension": "temporal",
+          "pattern": "deep_immersion",
+          "weight": 0.9
+        },
+        {
+          "id": "c",
+          "text": "Study in short, intense bursts with frequent breaks",
+          "hidden_dimension": "temporal",
+          "pattern": "interval_bursts",
+          "weight": 0.85
+        },
+        {
+          "id": "d",
+          "text": "Study when I feel motivated, trust my instincts",
+          "hidden_dimension": "temporal",
+          "pattern": "intuitive_flow",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "scenario": "new_textbook",
+      "text": "You get a new textbook for class. How do you typically approach it?",
+      "category": "information_approach",
+      "options": [
+        {
+          "id": "a",
+          "text": "Read the table of contents and skim chapter summaries first",
+          "hidden_dimension": "spatial",
+          "pattern": "goal_visualization",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Start from page 1 and work through systematically",
+          "hidden_dimension": "spatial",
+          "pattern": "sequential_build",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "Jump to different sections based on what interests me",
+          "hidden_dimension": "spatial",
+          "pattern": "holistic_assembly",
+          "weight": 0.9
+        },
+        {
+          "id": "d",
+          "text": "Look for connections between topics and themes",
+          "hidden_dimension": "ecosystem",
+          "pattern": "pattern_recognition",
+          "weight": 0.9
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "scenario": "study_space",
+      "text": "What kind of study environment helps you focus best?",
+      "category": "environment_preference",
+      "options": [
+        {
+          "id": "a",
+          "text": "Complete silence with organized, clean space",
+          "hidden_dimension": "temperature",
+          "pattern": "low_systematic",
+          "weight": 0.85
+        },
+        {
+          "id": "b",
+          "text": "Background music with cozy, comfortable setup",
+          "hidden_dimension": "temperature",
+          "pattern": "moderate_ambient",
+          "weight": 0.8
+        },
+        {
+          "id": "c",
+          "text": "Busy coffee shop or library with energy around me",
+          "hidden_dimension": "temperature",
+          "pattern": "warm_social",
+          "weight": 0.75
+        },
+        {
+          "id": "d",
+          "text": "Changes based on my mood and what I'm studying",
+          "hidden_dimension": "texture",
+          "pattern": "responsive_adaptation",
+          "weight": 0.8
+        }
+      ]
+    }
+  ]
+}

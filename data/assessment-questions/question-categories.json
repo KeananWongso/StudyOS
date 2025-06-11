@@ -1,0 +1,62 @@
+[
+  {
+    "id": "information_processing",
+    "name": "Information Processing",
+    "description": "How you prefer to receive and process new information",
+    "weight": 1.0
+  },
+  {
+    "id": "memory_retention",
+    "name": "Memory Retention",
+    "description": "Methods that help you best remember information",
+    "weight": 1.2
+  },
+  {
+    "id": "problem_solving",
+    "name": "Problem Solving",
+    "description": "Your approach to tackling problems and challenges",
+    "weight": 1.1
+  },
+  {
+    "id": "study_environment",
+    "name": "Study Environment",
+    "description": "Environmental factors that optimize your learning",
+    "weight": 0.9
+  },
+  {
+    "id": "instruction_preference",
+    "name": "Instruction Preference",
+    "description": "How you prefer to receive instructions and guidance",
+    "weight": 1.0
+  },
+  {
+    "id": "note_taking",
+    "name": "Note Taking",
+    "description": "Your preferred methods for capturing and organizing information",
+    "weight": 0.8
+  },
+  {
+    "id": "concentration",
+    "name": "Concentration",
+    "description": "Conditions that help you focus and maintain attention",
+    "weight": 1.1
+  },
+  {
+    "id": "feedback_preference",
+    "name": "Feedback Preference",
+    "description": "How you prefer to receive and process feedback",
+    "weight": 0.9
+  },
+  {
+    "id": "test_preparation",
+    "name": "Test Preparation",
+    "description": "Your approach to studying for exams and assessments",
+    "weight": 1.2
+  },
+  {
+    "id": "comprehension",
+    "name": "Comprehension",
+    "description": "How you best understand and grasp new concepts",
+    "weight": 1.3
+  }
+]

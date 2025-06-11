@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Assessment System</title>
+    <link rel="stylesheet" href="css/cognitive-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <h1>CogniMap</h1>
+                    <span class="nav-subtitle">Cognitive Assessment System</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#cognitive-assessment" class="nav-link">Assessment</a></li>
+                    <li><a href="#cognitive-profile" class="nav-link">Profile</a></li>
+                    <li><a href="#results" class="nav-link">Results</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!-- Home Section -->
+            <section id="home" class="section">
+                <div class="container">
+                    <div class="hero">
+                        <div class="hero-content">
+                            <h2 class="hero-title">Discover Your Cognitive Fingerprint</h2>
+                            <p class="hero-description">
+                                Move beyond traditional learning styles. Our advanced assessment reveals how your mind 
+                                naturally processes information across five key dimensions: texture, temperature, ecosystem, 
+                                temporal patterns, and spatial construction.
+                            </p>
+                            <div class="dimension-preview">
+                                <div class="dimension-card" data-dimension="texture">
+                                    <div class="dimension-icon">🌊</div>
+                                    <h3>Texture</h3>
+                                    <p>How information 'feels' to you</p>
+                                </div>
+                                <div class="dimension-card" data-dimension="temperature">
+                                    <div class="dimension-icon">🌡️</div>
+                                    <h3>Temperature</h3>
+                                    <p>Your learning energy preferences</p>
+                                </div>
+                                <div class="dimension-card" data-dimension="ecosystem">
+                                    <div class="dimension-icon">🌳</div>
+                                    <h3>Ecosystem</h3>
+                                    <p>How you organize concepts</p>
+                                </div>
+                                <div class="dimension-card" data-dimension="temporal">
+                                    <div class="dimension-icon">⏰</div>
+                                    <h3>Temporal</h3>
+                                    <p>Your natural learning rhythms</p>
+                                </div>
+                                <div class="dimension-card" data-dimension="spatial">
+                                    <div class="dimension-icon">🏗️</div>
+                                    <h3>Spatial</h3>
+                                    <p>How you construct knowledge</p>
+                                </div>
+                            </div>
+                            <button id="start-cognitive-assessment" class="btn-primary btn-large">
+                                Begin Cognitive Assessment
+                            </button>
+                        </div>
+                        <div class="hero-visual">
+                            <div class="cognitive-visualization">
+                                <div class="cognitive-node" style="--delay: 0s"></div>
+                                <div class="cognitive-node" style="--delay: 0.5s"></div>
+                                <div class="cognitive-node" style="--delay: 1s"></div>
+                                <div class="cognitive-node" style="--delay: 1.5s"></div>
+                                <div class="cognitive-node" style="--delay: 2s"></div>
+                                <div class="connection-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cognitive Assessment Section -->
+            <section id="cognitive-assessment" class="section hidden">
+                <div class="container">
+                    <div class="assessment-container">
+                        <div class="assessment-header">
+                            <div class="progress-container">
+                                <div class="progress-bar-bg">
+                                    <div id="progress-bar" class="progress-bar"></div>
+                                </div>
+                                <span id="progress" class="progress-text">1 / 15</span>
+                            </div>
+                        </div>
+
+                        <div class="assessment-content">
+                            <div class="question-container">
+                                <h2 id="question-text" class="question-text">Loading question...</h2>
+                                <p id="question-description" class="question-description"></p>
+                                
+                                <div id="answer-options" class="options-grid">
+                                    <!-- Options will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <div class="assessment-navigation">
+                                <button id="prev-btn" class="btn-secondary" disabled>
+                                    <span>← Previous</span>
+                                </button>
+                                <div class="nav-indicator">
+                                    <div class="dimension-indicator" id="current-dimension"></div>
+                                </div>
+                                <button id="next-btn" class="btn-primary" disabled>
+                                    <span>Next →</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cognitive Profile Section -->
+            <section id="cognitive-profile" class="section hidden">
+                <div class="container">
+                    <div class="profile-container">
+                        <h2 class="section-title">Your Cognitive Profile</h2>
+                        <div id="profile-content">
+                            <!-- Profile content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results" class="section hidden">
+                <div class="container">
+                    <div class="results-container">
+                        <h2 class="section-title">Your Cognitive Fingerprint</h2>
+                        
+                        <div class="results-summary">
+                            <div id="cognitive-style-card" class="style-card">
+                                <!-- Cognitive style summary -->
+                            </div>
+                        </div>
+
+                        <div class="results-grid">
+                            <div class="results-dimensions">
+                                <h3>Dimensional Analysis</h3>
+                                <div id="dimensions-visualization" class="dimensions-viz">
+                                    <!-- Dimensions visualization -->
+                                </div>
+                            </div>
+
+                            <div class="results-recommendations">
+                                <h3>Personalized Learning Pathways</h3>
+                                <div id="learning-pathways" class="pathways-container">
+                                    <!-- Learning recommendations -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="behavior-analysis">
+                            <h3>Behavioral Insights</h3>
+                            <div id="behavior-insights" class="behavior-grid">
+                                <!-- Behavioral analysis -->
+                            </div>
+                        </div>
+
+                        <div class="export-actions">
+                            <button id="export-pdf" class="btn-secondary">Export PDF Report</button>
+                            <button id="share-results" class="btn-secondary">Share Results</button>
+                            <button id="retake-assessment" class="btn-primary">Retake Assessment</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 CogniMap. Advanced cognitive assessment technology.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Analyzing your cognitive patterns...</p>
+        </div>
+    </div>
+
+    <script src="js/cognitive-assessment.js"></script>
+    <script src="js/cognitive-visualization.js"></script>
+</body>
+</html>

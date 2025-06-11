@@ -1,0 +1,473 @@
+{
+  "userId": "anonymous",
+  "lastAssessment": "2025-06-11T07:28:45.671Z",
+  "assessmentCount": 1,
+  "latestResults": {
+    "dimensions": {
+      "texture": {
+        "patterns": {
+          "smooth_flowing": {
+            "count": 1,
+            "scores": [
+              1.32
+            ],
+            "behaviorWeight": 1.2,
+            "finalScore": 44
+          },
+          "rough_grippable": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "sand_shifting": {
+            "count": 2,
+            "scores": [
+              0.63,
+              0.9
+            ],
+            "behaviorWeight": 0.9,
+            "finalScore": 51
+          },
+          "clay_moldable": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          }
+        },
+        "totalCount": 3,
+        "confidence": 25
+      },
+      "temperature": {
+        "patterns": {
+          "cool_logical": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "warm_narrative": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "hot_urgent": {
+            "count": 1,
+            "scores": [
+              1
+            ],
+            "behaviorWeight": 1,
+            "finalScore": 33
+          },
+          "alternating_temp": {
+            "count": 2,
+            "scores": [
+              1.584,
+              1.584
+            ],
+            "behaviorWeight": 1.44,
+            "finalScore": 106
+          }
+        },
+        "totalCount": 3,
+        "confidence": 86
+      },
+      "ecosystem": {
+        "patterns": {
+          "garden_organic": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "city_systems": {
+            "count": 1,
+            "scores": [
+              1.32
+            ],
+            "behaviorWeight": 1.2,
+            "finalScore": 44
+          },
+          "forest_hierarchical": {
+            "count": 2,
+            "scores": [
+              0.756,
+              1.1880000000000002
+            ],
+            "behaviorWeight": 1.08,
+            "finalScore": 65
+          },
+          "ocean_depth": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          }
+        },
+        "totalCount": 3,
+        "confidence": 39
+      },
+      "temporal": {
+        "patterns": {
+          "tidal_steady": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "seasonal_deep": {
+            "count": 3,
+            "scores": [
+              1.32,
+              1.32,
+              1.2
+            ],
+            "behaviorWeight": 1.2,
+            "finalScore": 128
+          },
+          "lightning_burst": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "heartbeat_maintenance": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          }
+        },
+        "totalCount": 3,
+        "confidence": 128
+      },
+      "spatial": {
+        "patterns": {
+          "foundation_up": {
+            "count": 1,
+            "scores": [
+              1
+            ],
+            "behaviorWeight": 1,
+            "finalScore": 33
+          },
+          "big_picture_down": {
+            "count": 2,
+            "scores": [
+              1.1,
+              1
+            ],
+            "behaviorWeight": 1,
+            "finalScore": 70
+          },
+          "modular": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          },
+          "flowing": {
+            "count": 0,
+            "scores": [],
+            "behaviorWeight": 1,
+            "finalScore": 0
+          }
+        },
+        "totalCount": 3,
+        "confidence": 50
+      }
+    },
+    "cognitiveFingerprint": {
+      "primary": {
+        "texture": {
+          "pattern": "sand_shifting",
+          "score": 51,
+          "description": "Appreciates flexible, adaptable information that can be viewed from multiple perspectives",
+          "confidence": 25
+        },
+        "temperature": {
+          "pattern": "alternating_temp",
+          "score": 106,
+          "description": "Benefits from variety in emotional intensity and pacing throughout learning experiences",
+          "confidence": 86
+        },
+        "ecosystem": {
+          "pattern": "forest_hierarchical",
+          "score": 65,
+          "description": "Thinks in structured levels and hierarchies, building from ground up to complex canopies",
+          "confidence": 39
+        },
+        "temporal": {
+          "pattern": "seasonal_deep",
+          "score": 128,
+          "description": "Prefers cycles of extensive preparation followed by periods of intensive learning and growth",
+          "confidence": 128
+        },
+        "spatial": {
+          "pattern": "big_picture_down",
+          "score": 70,
+          "description": "Starts with comprehensive overviews and fills in specific details progressively",
+          "confidence": 50
+        }
+      },
+      "secondary": {
+        "texture": {
+          "pattern": "smooth_flowing",
+          "score": 44,
+          "description": "Prefers seamless, connected information that flows logically from one concept to the next"
+        },
+        "temperature": {
+          "pattern": "hot_urgent",
+          "score": 33,
+          "description": "Motivated by intensity, immediacy, and high-stakes applications with clear deadlines"
+        },
+        "ecosystem": {
+          "pattern": "city_systems",
+          "score": 44,
+          "description": "Prefers organized, systematic relationships with clear functions and structured interactions"
+        },
+        "spatial": {
+          "pattern": "foundation_up",
+          "score": 33,
+          "description": "Builds knowledge systematically from basic principles to complex applications"
+        }
+      },
+      "behaviorProfile": {
+        "decisionMaking": "Balanced - thoughtful but not overly hesitant",
+        "processingStyle": "Deep processor - takes time for thorough consideration",
+        "attentionPattern": "Highly focused - maintains steady attention",
+        "cognitiveLoad": "Moderate cognitive load - balanced processing capacity"
+      },
+      "cognitiveStyle": "Your cognitive style is characterized by a unique combination of cognitive preferences that creates a distinctive thinking style.",
+      "adaptabilityIndex": 100,
+      "processingSpeed": "Reflective processor",
+      "confidence": 66
+    },
+    "learningPathways": {
+      "optimal": [
+        "Flexible, adaptive learning paths",
+        "Context-sensitive information",
+        "Multiple perspective approaches",
+        "Varied pacing and intensity",
+        "Mixed approaches within sessions",
+        "Flexible engagement strategies",
+        "Layered, foundational approaches",
+        "Prerequisite-based progressions",
+        "Scaffolded complexity building",
+        "Intensive learning periods",
+        "Extended preparation phases",
+        "Cyclical review and mastery",
+        "Overview-first presentations",
+        "Top-down design thinking",
+        "Conceptual framework starters"
+      ],
+      "alternative": [
+        "Sequential learning modules with clear connections",
+        "Narrative-based information presentation",
+        "Process-oriented explanations",
+        "High-stakes, time-pressured scenarios",
+        "Immediate application opportunities",
+        "Competitive or challenging environments",
+        "Structured, systematic curricula",
+        "Clear roles and relationships",
+        "Organized knowledge frameworks",
+        "Progressive skill building",
+        "Prerequisite mastery requirements",
+        "Solid foundational approaches"
+      ],
+      "development": [
+        {
+          "dimension": "texture",
+          "pattern": "clay_moldable",
+          "reason": "Develop clay_moldable to complement your sand_shifting strength",
+          "activities": [
+            "Interactive, manipulable content",
+            "Creative project-based learning",
+            "Experimental exploration opportunities"
+          ]
+        },
+        {
+          "dimension": "temperature",
+          "pattern": "tidal_steady",
+          "reason": "Develop tidal_steady to complement your alternating_temp strength",
+          "activities": []
+        },
+        {
+          "dimension": "ecosystem",
+          "pattern": "garden_organic",
+          "reason": "Develop garden_organic to complement your forest_hierarchical strength",
+          "activities": [
+            "Discovery-based learning",
+            "Natural progression of complexity",
+            "Emergent understanding approaches"
+          ]
+        },
+        {
+          "dimension": "temporal",
+          "pattern": "heartbeat_maintenance",
+          "reason": "Develop heartbeat_maintenance to complement your seasonal_deep strength",
+          "activities": [
+            "Regular maintenance with periodic intensity",
+            "Balanced routine with occasional acceleration",
+            "Sustainable long-term learning patterns"
+          ]
+        },
+        {
+          "dimension": "spatial",
+          "pattern": "foundation_up",
+          "reason": "Develop foundation_up to complement your big_picture_down strength",
+          "activities": [
+            "Progressive skill building",
+            "Prerequisite mastery requirements",
+            "Solid foundational approaches"
+          ]
+        }
+      ]
+    },
+    "dimensionInteractions": {
+      "texture_temperature": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine texture and temperature approaches for enhanced learning",
+          "Balance your texture preferences with temperature strategies"
+        ]
+      },
+      "texture_ecosystem": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine texture and ecosystem approaches for enhanced learning",
+          "Balance your texture preferences with ecosystem strategies"
+        ]
+      },
+      "texture_temporal": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine texture and temporal approaches for enhanced learning",
+          "Balance your texture preferences with temporal strategies"
+        ]
+      },
+      "texture_spatial": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine texture and spatial approaches for enhanced learning",
+          "Balance your texture preferences with spatial strategies"
+        ]
+      },
+      "temperature_ecosystem": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine temperature and ecosystem approaches for enhanced learning",
+          "Balance your temperature preferences with ecosystem strategies"
+        ]
+      },
+      "temperature_temporal": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine temperature and temporal approaches for enhanced learning",
+          "Balance your temperature preferences with temporal strategies"
+        ]
+      },
+      "temperature_spatial": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine temperature and spatial approaches for enhanced learning",
+          "Balance your temperature preferences with spatial strategies"
+        ]
+      },
+      "ecosystem_temporal": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine ecosystem and temporal approaches for enhanced learning",
+          "Balance your ecosystem preferences with temporal strategies"
+        ]
+      },
+      "ecosystem_spatial": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine ecosystem and spatial approaches for enhanced learning",
+          "Balance your ecosystem preferences with spatial strategies"
+        ]
+      },
+      "temporal_spatial": {
+        "synergy": 50,
+        "recommendations": [
+          "Combine temporal and spatial approaches for enhanced learning",
+          "Balance your temporal preferences with spatial strategies"
+        ]
+      }
+    },
+    "behaviorAnalysis": {
+      "decisionMaking": "Balanced - thoughtful but not overly hesitant",
+      "processingStyle": "Deep processor - takes time for thorough consideration",
+      "attentionPattern": "Highly focused - maintains steady attention",
+      "cognitiveLoad": "Moderate cognitive load - balanced processing capacity"
+    },
+    "overallProfile": {
+      "type": "Adaptive Thinker",
+      "description": "Your cognitive style is characterized by a unique combination of cognitive preferences that creates a distinctive thinking style.",
+      "strengths": [
+        "Appreciates flexible, adaptable information that can be viewed from multiple perspectives",
+        "Benefits from variety in emotional intensity and pacing throughout learning experiences",
+        "Thinks in structured levels and hierarchies, building from ground up to complex canopies",
+        "Prefers cycles of extensive preparation followed by periods of intensive learning and growth",
+        "Starts with comprehensive overviews and fills in specific details progressively"
+      ],
+      "growthAreas": [
+        "Develop stronger preferences in texture dimension",
+        "Develop stronger preferences in ecosystem dimension",
+        "Develop stronger preferences in spatial dimension"
+      ],
+      "optimalConditions": []
+    },
+    "algorithm": "cognitive_multi_dimensional_advanced",
+    "timestamp": "2025-06-11T07:28:45.666Z",
+    "personalizedRecommendations": {
+      "studyTechniques": [
+        "Adapt study methods based on context and mood",
+        "Use flexible scheduling and varied approaches",
+        "Switch between different perspectives on the same topic",
+        "Mix intensive and relaxed study periods",
+        "Alternate between different emotional approaches"
+      ],
+      "learningEnvironments": [
+        "Create layered information displays",
+        "Use hierarchical organization systems",
+        "Build from simple to complex arrangements",
+        "Use walls for big-picture visual displays",
+        "Start with overview materials prominently displayed"
+      ],
+      "technologicalTools": [
+        "Adaptive learning systems",
+        "Multi-modal platforms",
+        "Flexible content apps",
+        "Multi-modal learning apps",
+        "Variety-focused platforms"
+      ],
+      "collaborationStrategies": [
+        "Engage in mentorship relationships",
+        "Participate in hierarchical learning structures",
+        "Use tiered group learning approaches"
+      ],
+      "timeManagement": [
+        "Plan intensive learning periods",
+        "Use cyclical study schedules",
+        "Allow for extended preparation phases"
+      ],
+      "skillDevelopment": [
+        "Practice rapid information processing",
+        "Develop quick synthesis skills"
+      ]
+    }
+  },
+  "cognitiveType": "Adaptive Thinker",
+  "assessmentHistory": [
+    {
+      "assessmentId": "3311de97-4107-4f46-b7fe-297ac82c81e5",
+      "timestamp": "2025-06-11T07:28:45.671Z",
+      "cognitiveType": "Adaptive Thinker",
+      "confidence": 66
+    }
+  ]
+}
