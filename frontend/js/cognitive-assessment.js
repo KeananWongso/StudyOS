@@ -158,12 +158,25 @@ class CognitiveAssessmentApp {
     async loadCognitiveQuestions() {
         try {
             const response = await fetch('/api/cognitive-assessment/questions');
-            this.questions = await response.json();
+            const data = await response.json();
+            
+            // Handle the new scenario-based question format
+            if (data.questions) {
+                this.questions = data.questions;
+            } else {
+                this.questions = data;
+            }
         } catch (error) {
             console.error('Failed to load cognitive questions:', error);
             // Load from local file as fallback
-            const response = await fetch('/data/assessment-questions/cognitive-questions.json');
-            this.questions = await response.json();
+            try {
+                const response = await fetch('/data/assessment-questions/cognitive-questions.json');
+                const data = await response.json();
+                this.questions = data.questions || data;
+            } catch (fallbackError) {
+                console.error('Failed to load fallback questions:', fallbackError);
+                this.questions = [];
+            }
         }
     }
 
@@ -217,8 +230,9 @@ class CognitiveAssessmentApp {
         // Update dimension indicator
         const dimensionIndicator = document.getElementById('current-dimension');
         if (dimensionIndicator) {
-            dimensionIndicator.textContent = this.capitalizeFirst(question.dimension) + ' Dimension';
-            dimensionIndicator.className = `dimension-indicator ${question.dimension}`;
+            const dimension = question.dimension || 'Scenario';
+            dimensionIndicator.textContent = this.capitalizeFirst(question.category || dimension) + ' Question';
+            dimensionIndicator.className = `dimension-indicator ${dimension}`;
         }
 
         document.getElementById('progress').textContent = 
@@ -274,10 +288,14 @@ class CognitiveAssessmentApp {
         cardElement.classList.add('selected');
         
         // Record answer with behavioral data
+        const currentQuestion = this.questions[this.currentQuestionIndex];
         const answerData = {
             ...option,
-            questionId: this.questions[this.currentQuestionIndex].id,
-            dimension: this.questions[this.currentQuestionIndex].dimension,
+            questionId: currentQuestion.id,
+            dimension: currentQuestion.dimension || option.hidden_dimension,
+            hidden_dimension: option.hidden_dimension, // For new scenario format
+            scenario: currentQuestion.scenario, // For new scenario format
+            category: currentQuestion.category, // For new scenario format
             responseTime: responseTime,
             timestamp: Date.now()
         };
@@ -358,6 +376,9 @@ class CognitiveAssessmentApp {
             
             const results = await this.calculateCognitiveResults();
             await this.saveCognitiveResults(results, totalTime);
+            
+            // Use the new results visualization system
+            this.initializeResultsVisualization(results);
             this.showSection('results');
         } catch (error) {
             console.error('Failed to complete assessment:', error);
@@ -405,13 +426,22 @@ class CognitiveAssessmentApp {
 
     async calculateCognitiveResults() {
         try {
+            // Convert answers to the expected format for the server
+            const responses = this.answers.map((answer, index) => ({
+                questionId: answer.questionId,
+                selectedOption: answer.id,
+                responseTime: answer.responseTime,
+                questionData: this.questions[index]
+            }));
+
             const response = await fetch('/api/cognitive-assessment/calculate-results', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ 
-                    answers: this.answers,
+                    responses: responses,
+                    assessmentType: 'scenario',
                     behaviorData: this.behaviorData
                 })
             });
@@ -596,6 +626,17 @@ class CognitiveAssessmentApp {
         const results = this.calculateResultsLocally();
         const visualization = new CognitiveVisualization();
         visualization.displayResults(results);
+    }
+
+    initializeResultsVisualization(results) {
+        // Initialize the new results visualization system
+        if (window.ResultsVisualization) {
+            const resultsViz = new window.ResultsVisualization();
+            resultsViz.initialize(results);
+        } else {
+            // Fallback to basic display if ResultsVisualization is not loaded
+            this.displayResults();
+        }
     }
 
     displayCognitiveProfile() {

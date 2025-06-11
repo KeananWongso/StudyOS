@@ -15,8 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, '../frontend')));
-
+// API routes first
 app.use('/api/questions', questionRoutes);
 app.use('/api/profiles', profileRoutes);
 app.use('/api/assessments', assessmentRoutes);
@@ -26,9 +25,33 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Learning Pattern Assessment API is running' });
 });
 
+// HTML routes (before static middleware to override default index.html)
+// Route for the new cognitive assessment system (default)
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index-cognitive.html'));
+});
+
+// Route for cognitive assessment specifically 
+app.get('/cognitive', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index-cognitive.html'));
+});
+
+app.get('/assessment', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index-cognitive.html'));
+});
+
+// Route for the original/legacy UI
+app.get('/legacy', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
+
+// Route for smart planner (will redirect to cognitive assessment which includes planner)
+app.get('/planner', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index-cognitive.html'));
+});
+
+// Static file middleware (after specific routes)
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
