@@ -248,8 +248,39 @@ function TutorHomeDashboard() {
   };
 
   const saveManualGrades = async () => {
-    console.log('Saving manual grades:', manualGrades);
-    alert('Manual grading saved! (Feature coming soon)');
+    if (!selectedResponse) return;
+    
+    try {
+      console.log('Saving manual grades:', manualGrades);
+      
+      const response = await fetch('/api/responses/manual-grade', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          responseId: selectedResponse.id,
+          studentEmail: selectedResponse.studentEmail,
+          manualGrades,
+          gradedBy: user?.email,
+          gradedAt: new Date().toISOString()
+        }),
+      });
+
+      if (response.ok) {
+        alert('Manual grading saved successfully!');
+        // Refresh the dashboard data to show updated grades
+        await loadDashboardData();
+        setShowResponseViewer(false);
+        setManualGrades({});
+      } else {
+        console.error('Failed to save manual grades');
+        alert('Failed to save grades. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error saving manual grades:', error);
+      alert('Error saving grades. Please try again.');
+    }
   };
 
   const handleDeleteAssessment = async (assessment: Assessment) => {
@@ -709,9 +740,24 @@ function ResponseViewerModal({
                   <h3 className="font-medium text-gray-900 mb-2">
                     Question {index + 1}
                   </h3>
-                  <div className="text-sm text-gray-600 mb-2">
-                    Student Answer: <span className="font-medium">{String(answer.answer)}</span>
+                  <div className="text-sm text-gray-900 mb-2">
+                    Student Answer: <span className="font-semibold text-gray-900">{String(answer.answer)}</span>
                   </div>
+                  
+                  {/* Display canvas drawing if it exists */}
+                  {response?.canvasDrawings?.[questionId] && (
+                    <div className="mt-3">
+                      <div className="text-sm text-gray-900 mb-2 font-semibold">Canvas Drawing:</div>
+                      <div className="border border-gray-200 rounded-lg p-2 bg-white">
+                        <img 
+                          src={response.canvasDrawings[questionId]} 
+                          alt={`Student drawing for question ${index + 1}`}
+                          className="max-w-full h-auto rounded"
+                          style={{ maxHeight: '300px' }}
+                        />
+                      </div>
+                    </div>
+                  )}
                   <div className={`inline-flex items-center gap-2 px-3 py-1 rounded text-sm ${
                     answer.isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                   }`}>
@@ -723,39 +769,44 @@ function ResponseViewerModal({
               </div>
 
               {/* Manual Grading Controls */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-medium text-gray-900 mb-3">Manual Grading Override</h4>
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => onGradeChange(questionId, 'isCorrect', !answer.isCorrect)}
-                    className={`px-3 py-2 rounded text-sm font-medium ${
-                      manualGrades[questionId]?.isCorrect !== undefined 
-                        ? (manualGrades[questionId].isCorrect ? 'bg-green-600 text-white' : 'bg-red-600 text-white')
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {answer.isCorrect ? 'Mark as Incorrect' : 'Mark as Correct'}
-                  </button>
-                  
-                  <div className="flex items-center gap-2">
-                    <label className="text-sm text-gray-700">Points:</label>
-                    <input
-                      type="number"
-                      min="0"
-                      max={answer.maxPoints || 5}
-                      defaultValue={answer.pointsEarned || 0}
-                      onChange={(e) => onGradeChange(questionId, 'points', parseInt(e.target.value))}
-                      className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
-                    />
-                    <span className="text-sm text-gray-500">/ {answer.maxPoints || 5}</span>
+              <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                <h4 className="font-semibold text-gray-900 mb-3">Manual Grading Override</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => onGradeChange(questionId, 'isCorrect', !answer.isCorrect)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        manualGrades[questionId]?.isCorrect !== undefined 
+                          ? (manualGrades[questionId].isCorrect ? 'bg-green-600 text-white' : 'bg-red-600 text-white')
+                          : 'bg-gray-600 text-white hover:bg-gray-700'
+                      }`}
+                    >
+                      {answer.isCorrect ? 'Mark as Incorrect' : 'Mark as Correct'}
+                    </button>
+                    
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-medium text-gray-900">Points:</label>
+                      <input
+                        type="number"
+                        min="0"
+                        max={answer.maxPoints || 5}
+                        defaultValue={answer.pointsEarned || 0}
+                        onChange={(e) => onGradeChange(questionId, 'points', parseInt(e.target.value))}
+                        className="w-20 px-3 py-2 border-2 border-gray-300 rounded-lg text-sm font-medium bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      />
+                      <span className="text-sm font-medium text-gray-700">/ {answer.maxPoints || 5}</span>
+                    </div>
                   </div>
                   
-                  <input
-                    type="text"
-                    placeholder="Add feedback..."
-                    onChange={(e) => onGradeChange(questionId, 'feedback', e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">Feedback for student:</label>
+                    <textarea
+                      placeholder="Add feedback that the student will see..."
+                      rows={2}
+                      onChange={(e) => onGradeChange(questionId, 'feedback', e.target.value)}
+                      className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg text-sm bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 resize-none"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

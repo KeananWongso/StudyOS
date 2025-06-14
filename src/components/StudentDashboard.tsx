@@ -221,6 +221,60 @@ export default function StudentDashboard() {
           </div>
         )}
 
+        {/* Recent Results with Feedback */}
+        {responses.length > 0 && (
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Assessment Results</h2>
+            <div className="space-y-4">
+              {responses.slice(0, 3).map((response) => (
+                <div key={response.id} className="border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="font-semibold text-gray-900">Day {response.dayId}</h3>
+                      <p className="text-sm text-gray-600">
+                        Completed: {new Date(response.completedAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className={`text-lg font-bold ${
+                      response.score >= 80 ? 'text-green-600' :
+                      response.score >= 60 ? 'text-yellow-600' : 'text-red-600'
+                    }`}>
+                      {response.score}%
+                    </div>
+                  </div>
+                  
+                  {/* Show feedback if available */}
+                  {response.answers && Object.values(response.answers).some((answer: any) => answer.tutorFeedback) && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+                      <h4 className="font-medium text-blue-900 mb-2 flex items-center gap-2">
+                        <MessageSquare size={16} />
+                        Tutor Feedback
+                      </h4>
+                      <div className="space-y-2">
+                        {Object.entries(response.answers).map(([questionId, answer]: [string, any], index) => (
+                          answer.tutorFeedback && (
+                            <div key={questionId} className="text-sm">
+                              <span className="font-medium text-blue-800">Question {index + 1}:</span>
+                              <span className="text-blue-700 ml-2">{answer.tutorFeedback}</span>
+                            </div>
+                          )
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {response.manuallyGraded && (
+                    <div className="flex items-center gap-2 mt-2 text-sm text-purple-600">
+                      <CheckCircle size={14} />
+                      Reviewed by tutor
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Assessments List */}
           <div className="lg:col-span-2">

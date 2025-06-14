@@ -36,7 +36,7 @@ This guide walks you through configuring the OAuth consent screen for the Cambri
 
 1. **App Name**
    ```
-   Cambridge Math Tracker
+   Progress Tracker
    ```
 
 2. **User Support Email**
