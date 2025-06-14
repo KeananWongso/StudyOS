@@ -1,0 +1,251 @@
+{
+  "id": "cambridge-math-15-day-intensive",
+  "name": "Cambridge Math 15-Day Intensive Course",
+  "lastUpdated": "2024-01-15T10:30:00Z",
+  "strands": [
+    {
+      "id": "day-1",
+      "name": "Day 1: Number Fluency, Estimation & Indices",
+      "description": "Basic arithmetic and integer operations",
+      "color": "#3B82F6",
+      "chapters": [
+        {
+          "id": "number-fluency",
+          "name": "Number Fluency",
+          "description": "Basic arithmetic operations and mental math",
+          "subtopics": [
+            {
+              "id": "mental-arithmetic",
+              "name": "Mental Arithmetic",
+              "description": "Quick calculation strategies"
+            },
+            {
+              "id": "order-operations",
+              "name": "Order of Operations",
+              "description": "BIDMAS/BODMAS rules"
+            }
+          ]
+        },
+        {
+          "id": "estimation",
+          "name": "Estimation",
+          "description": "Approximation and rounding techniques",
+          "subtopics": [
+            {
+              "id": "rounding-numbers",
+              "name": "Rounding Numbers",
+              "description": "Rounding to nearest 10, 100, 1000"
+            },
+            {
+              "id": "estimation-strategies",
+              "name": "Estimation Strategies",
+              "description": "Practical estimation methods"
+            }
+          ]
+        },
+        {
+          "id": "indices",
+          "name": "Indices",
+          "description": "Powers and exponents",
+          "subtopics": [
+            {
+              "id": "basic-powers",
+              "name": "Basic Powers",
+              "description": "Square and cube numbers"
+            },
+            {
+              "id": "index-laws",
+              "name": "Index Laws",
+              "description": "Rules for multiplying and dividing powers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-2",
+      "name": "Day 2: Fractions, Decimals, Percentages, Ratios",
+      "description": "Working with different number formats and proportions",
+      "color": "#10B981",
+      "chapters": [
+        {
+          "id": "fractions",
+          "name": "Fractions",
+          "description": "Operations with fractions",
+          "subtopics": [
+            {
+              "id": "adding-fractions",
+              "name": "Adding Fractions",
+              "description": "Adding fractions with same and different denominators"
+            },
+            {
+              "id": "multiplying-fractions",
+              "name": "Multiplying Fractions",
+              "description": "Multiplication and division of fractions"
+            }
+          ]
+        },
+        {
+          "id": "decimals",
+          "name": "Decimals",
+          "description": "Decimal operations and conversions",
+          "subtopics": [
+            {
+              "id": "decimal-operations",
+              "name": "Decimal Operations",
+              "description": "Adding, subtracting, multiplying decimals"
+            },
+            {
+              "id": "fraction-decimal-conversion",
+              "name": "Fraction-Decimal Conversion",
+              "description": "Converting between fractions and decimals"
+            }
+          ]
+        },
+        {
+          "id": "percentages",
+          "name": "Percentages",
+          "description": "Percentage calculations and applications",
+          "subtopics": [
+            {
+              "id": "percentage-calculations",
+              "name": "Percentage Calculations",
+              "description": "Finding percentages of amounts"
+            },
+            {
+              "id": "percentage-change",
+              "name": "Percentage Change",
+              "description": "Increase and decrease calculations"
+            }
+          ]
+        },
+        {
+          "id": "ratios",
+          "name": "Ratios",
+          "description": "Ratio and proportion problems",
+          "subtopics": [
+            {
+              "id": "simplifying-ratios",
+              "name": "Simplifying Ratios",
+              "description": "Reducing ratios to simplest form"
+            },
+            {
+              "id": "sharing-ratios",
+              "name": "Sharing in Ratios",
+              "description": "Dividing quantities in given ratios"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-3",
+      "name": "Day 3: Algebra Foundations",
+      "description": "Introduction to algebraic expressions and equations",
+      "color": "#8B5CF6",
+      "chapters": [
+        {
+          "id": "algebraic-expressions",
+          "name": "Algebraic Expressions",
+          "description": "Working with variables and expressions",
+          "subtopics": [
+            {
+              "id": "collecting-terms",
+              "name": "Collecting Like Terms",
+              "description": "Simplifying expressions with like terms"
+            },
+            {
+              "id": "expanding-brackets",
+              "name": "Expanding Brackets",
+              "description": "Distributive property and expansion"
+            }
+          ]
+        },
+        {
+          "id": "simple-equations",
+          "name": "Simple Equations",
+          "description": "Solving linear equations",
+          "subtopics": [
+            {
+              "id": "one-step-equations",
+              "name": "One-Step Equations",
+              "description": "Basic equation solving"
+            },
+            {
+              "id": "two-step-equations",
+              "name": "Two-Step Equations",
+              "description": "More complex linear equations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-4",
+      "name": "Day 4: Geometry: Area, Shapes & Solids",
+      "description": "Shape properties, area calculations, and 3D geometry",
+      "color": "#F59E0B",
+      "chapters": [
+        {
+          "id": "area-calculations",
+          "name": "Area Calculations",
+          "description": "Finding areas of common shapes",
+          "subtopics": [
+            {
+              "id": "rectangle-triangle-area",
+              "name": "Rectangle and Triangle Area",
+              "description": "Basic area formulas"
+            },
+            {
+              "id": "circle-area",
+              "name": "Circle Area",
+              "description": "Area and circumference of circles"
+            }
+          ]
+        },
+        {
+          "id": "3d-shapes",
+          "name": "3D Shapes",
+          "description": "Properties and volume of solids",
+          "subtopics": [
+            {
+              "id": "volume-cuboids",
+              "name": "Volume of Cuboids",
+              "description": "Calculating volume of rectangular solids"
+            },
+            {
+              "id": "surface-area",
+              "name": "Surface Area",
+              "description": "Finding surface area of 3D shapes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-5",
+      "name": "Day 5: Mid-Week Review & Quiz",
+      "description": "Consolidation of topics from Days 1-4",
+      "color": "#EF4444",
+      "chapters": [
+        {
+          "id": "review-session",
+          "name": "Review Session",
+          "description": "Practice and reinforcement of key concepts",
+          "subtopics": [
+            {
+              "id": "mixed-practice",
+              "name": "Mixed Practice",
+              "description": "Combined problems from all previous days"
+            },
+            {
+              "id": "common-mistakes",
+              "name": "Common Mistakes",
+              "description": "Identifying and correcting typical errors"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

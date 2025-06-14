@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "../styles/student-view.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* iPad and Touch Optimizations */
+@media screen and (max-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Touch-friendly elements */
+.touch-button {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Canvas optimizations for iPad */
+canvas {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Prevent zoom on double tap */
+* {
+  touch-action: manipulation;
+}
+
+/* Assessment specific styles */
+.assessment-card {
+  @apply bg-white rounded-lg shadow-md p-6 mb-4 border-l-4 border-blue-500;
+  min-height: 120px;
+  transition: all 0.2s ease;
+}
+
+.assessment-card:hover {
+  @apply shadow-lg border-blue-600;
+  transform: translateY(-2px);
+}
+
+.question-container {
+  @apply bg-gray-50 rounded-lg p-6 mb-6;
+}
+
+.canvas-container {
+  @apply border-2 border-gray-300 rounded-lg bg-white;
+  width: 100%;
+  height: 300px;
+  touch-action: none;
+}
+
+/* Progress indicators */
+.progress-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* iPad specific media queries */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .text-responsive {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Landscape iPad */
+@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+  .landscape-grid {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* Portrait iPad */
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .portrait-stack {
+    flex-direction: column;
+  }
+}
