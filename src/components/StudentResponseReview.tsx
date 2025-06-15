@@ -102,7 +102,7 @@ export default function StudentResponseReview() {
   const analyzeCanvasWork = async (questionId: string, imageData: string) => {
     setAnalysisLoading(true);
     try {
-      // Mock AI analysis - in real implementation, this would call Gemini API
+      // Mock AI analysis - in real implementation, this would call GPT-4o API
       const mockAnalysis = `
 **Work Quality Assessment:**
 • Student showed clear working steps

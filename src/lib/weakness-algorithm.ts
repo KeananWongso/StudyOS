@@ -1,5 +1,6 @@
 // Topic-Based Weakness Detection Algorithm
 import { SimplifiedCurriculum, SimplifiedCurriculumManager, SIMPLIFIED_CAMBRIDGE_CURRICULUM } from './simplified-curriculum';
+import { getCurriculumForUser } from './useCurriculum';
 
 export interface TopicPerformance {
   topicPath: string;
@@ -58,6 +59,17 @@ export class TopicBasedWeaknessAnalyzer {
 
   constructor(curriculum: SimplifiedCurriculum = SIMPLIFIED_CAMBRIDGE_CURRICULUM) {
     this.curriculum = curriculum;
+  }
+
+  /**
+   * Create analyzer with curriculum loaded from Firestore for a specific tutor
+   * This ensures analysis uses the imported Day 1-10 curriculum
+   */
+  static async createWithTutorCurriculum(tutorEmail: string): Promise<TopicBasedWeaknessAnalyzer> {
+    console.log('Loading tutor curriculum for weakness analysis:', tutorEmail);
+    const curriculum = await getCurriculumForUser(tutorEmail);
+    console.log('Loaded curriculum for analysis:', curriculum.name || curriculum.id);
+    return new TopicBasedWeaknessAnalyzer(curriculum);
   }
 
   analyzeStudentPerformance(responses: StudentResponse[]): WeaknessAnalysis {

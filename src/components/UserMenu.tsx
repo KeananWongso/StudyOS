@@ -34,6 +34,14 @@ export default function UserMenu() {
 
   if (!user) return null;
 
+  // Debug logging
+  console.log('UserMenu - User data:', {
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    role: user.role
+  });
+
   return (
     <div className="relative" ref={menuRef}>
       {/* User Profile Button */}
@@ -44,14 +52,41 @@ export default function UserMenu() {
         {/* Avatar */}
         <div className="relative">
           {user.photoURL ? (
-            <img
-              src={user.photoURL}
-              alt={user.displayName}
-              className="w-8 h-8 rounded-full border border-gray-300"
-            />
+            <>
+              <img
+                src={user.photoURL}
+                alt={user.displayName || 'User avatar'}
+                className="w-10 h-10 rounded-full border-2 border-gray-200 shadow-sm object-cover"
+                onError={(e) => {
+                  console.log('Profile image failed to load:', user.photoURL);
+                  // If image fails to load, hide it and show fallback
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const fallback = target.parentElement?.querySelector('.avatar-fallback') as HTMLElement;
+                  if (fallback) {
+                    fallback.style.display = 'flex';
+                  }
+                }}
+                onLoad={() => {
+                  console.log('Profile image loaded successfully:', user.photoURL);
+                }}
+              />
+              {/* Fallback avatar (hidden by default when photo URL exists) */}
+              <div 
+                className="avatar-fallback w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-sm absolute top-0 left-0"
+                style={{ display: 'none' }}
+              >
+                <span className="text-white font-semibold text-sm">
+                  {user.displayName?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+            </>
           ) : (
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <User className="w-4 h-4 text-white" />
+            /* No photo URL - show fallback immediately */
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-sm">
+              <span className="text-white font-semibold text-sm">
+                {user.displayName?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || 'U'}
+              </span>
             </div>
           )}
           

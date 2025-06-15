@@ -32,8 +32,52 @@ export async function GET(request: NextRequest) {
       responses.push({ id: doc.id, ...data } as StudentResponse);
     });
 
-    // Generate topic-based analytics
-    const analyzer = new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    // Find tutor email from assessments to load their curriculum
+    let tutorEmail = null;
+    
+    // Try to get tutor email from global responses first
+    try {
+      const globalResponsesRef = collection(db, 'allResponses');
+      const globalQuery = query(globalResponsesRef, orderBy('completedAt', 'desc'));
+      const globalSnapshot = await getDocs(globalQuery);
+      
+      globalSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.studentEmail === userEmail && data.assessmentDay) {
+          // Find assessment creator from assessments collection
+          return; // We'll get it from assessments instead
+        }
+      });
+    } catch (error) {
+      console.log('Could not fetch global responses for tutor detection');
+    }
+    
+    // Get tutor email from assessments collection
+    try {
+      const assessmentsRef = collection(db, 'assessments');
+      const assessmentsSnapshot = await getDocs(assessmentsRef);
+      
+      assessmentsSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.createdBy && !tutorEmail) {
+          tutorEmail = data.createdBy;
+          console.log('Found tutor email for analytics:', tutorEmail);
+        }
+      });
+    } catch (error) {
+      console.log('Could not determine tutor email, using default curriculum');
+    }
+    
+    // Generate topic-based analytics using tutor's imported curriculum
+    let analyzer;
+    try {
+      analyzer = tutorEmail 
+        ? await TopicBasedWeaknessAnalyzer.createWithTutorCurriculum(tutorEmail)
+        : new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    } catch (curriculumError) {
+      console.error('Error loading curriculum for analytics, using default:', curriculumError);
+      analyzer = new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    }
     
     if (responses.length === 0) {
       console.log('No responses found, returning empty analysis');
@@ -81,8 +125,21 @@ export async function GET(request: NextRequest) {
     
     console.log('Converted responses:', convertedResponses);
     
-    const analysis = analyzer.analyzeStudentPerformance(convertedResponses);
-    console.log('Analysis result:', analysis);
+    let analysis;
+    try {
+      analysis = analyzer.analyzeStudentPerformance(convertedResponses);
+      console.log('Analysis result:', analysis);
+    } catch (analysisError) {
+      console.error('Error during analysis, returning empty result:', analysisError);
+      analysis = {
+        weakTopics: [],
+        strongTopics: [],
+        averageAccuracy: 0,
+        totalQuestionsAttempted: 0,
+        recommendations: [],
+        focusAreas: []
+      };
+    }
 
     return NextResponse.json(analysis);
   } catch (error) {
@@ -116,8 +173,32 @@ export async function POST(request: NextRequest) {
       responses.push({ id: doc.id, ...doc.data() } as StudentResponse);
     });
 
-    // Generate and save topic-based analytics
-    const analyzer = new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    // Find tutor email from assessments to load their curriculum  
+    let tutorEmail = null;
+    try {
+      const assessmentsRef = collection(db, 'assessments');
+      const assessmentsSnapshot = await getDocs(assessmentsRef);
+      
+      assessmentsSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.createdBy && !tutorEmail) {
+          tutorEmail = data.createdBy;
+        }
+      });
+    } catch (error) {
+      console.log('Could not determine tutor email, using default curriculum');
+    }
+
+    // Generate and save topic-based analytics using tutor's imported curriculum
+    let analyzer;
+    try {
+      analyzer = tutorEmail 
+        ? await TopicBasedWeaknessAnalyzer.createWithTutorCurriculum(tutorEmail)
+        : new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    } catch (curriculumError) {
+      console.error('Error loading curriculum for analytics, using default:', curriculumError);
+      analyzer = new TopicBasedWeaknessAnalyzer(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+    }
     const analysis = analyzer.analyzeStudentPerformance(responses);
     
     const analyticsRef = doc(db, 'userAnalytics', userEmail);

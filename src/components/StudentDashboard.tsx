@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { AssessmentData, Analytics, WeaknessItem, StudentResponse } from '@/lib/types';
-import { Play, CheckCircle, BookOpen, TrendingUp, Target } from 'lucide-react';
+import { Play, CheckCircle, BookOpen, TrendingUp, Target, MessageSquare, Star, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { useCurrentUserEmail, useAuth } from './AuthProvider';
+import { useCurriculum } from '@/lib/useCurriculum';
 import UserMenu from './UserMenu';
 import { CompactProgressTrackerLogo } from './ProgressTrackerLogo';
 
@@ -15,9 +16,13 @@ export default function StudentDashboard() {
   const [weaknesses, setWeaknesses] = useState<WeaknessItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [completedAssessments, setCompletedAssessments] = useState<Set<string>>(new Set());
+  const [tutorEmail, setTutorEmail] = useState<string | null>(null);
 
   const userEmail = useCurrentUserEmail();
   const { user } = useAuth();
+  
+  // Load tutor's curriculum (students see their tutor's imported curriculum)
+  const { curriculum, loading: curriculumLoading } = useCurriculum(tutorEmail);
 
   useEffect(() => {
     fetchDashboardData();
@@ -45,15 +50,33 @@ export default function StudentDashboard() {
       const assessmentsResponse = await fetch('/api/assessments');
       const assessmentsData = await assessmentsResponse.json();
       console.log('Fetched assessments:', assessmentsData);
-      setAssessments(assessmentsData.assessments || []);
+      const fetchedAssessments = assessmentsData.assessments || [];
+      setAssessments(fetchedAssessments);
+      
+      // Extract tutor email from first assessment to load their curriculum
+      if (fetchedAssessments.length > 0 && fetchedAssessments[0].createdBy) {
+        setTutorEmail(fetchedAssessments[0].createdBy);
+        console.log('Found tutor email:', fetchedAssessments[0].createdBy);
+      }
 
       // Fetch user responses to determine completed assessments
       const responsesResponse = await fetch(`/api/responses?userEmail=${encodeURIComponent(userEmail)}`);
       const responsesData = await responsesResponse.json();
-      const responses = responsesData.responses || [];
-      setResponses(responses);
-      const completed = new Set(responses.map((r: any) => r.assessmentId || r.dayId).filter(Boolean) || []);
+      const allResponses = responsesData.responses || [];
+      
+      // Filter responses to only include those for existing assessments
+      const validAssessmentIds = new Set(fetchedAssessments.map(a => a.id));
+      const validResponses = allResponses.filter((r: any) => {
+        const assessmentId = r.assessmentId || r.dayId;
+        return validAssessmentIds.has(assessmentId);
+      });
+      
+      setResponses(validResponses);
+      const completed = new Set(validResponses.map((r: any) => r.assessmentId || r.dayId).filter(Boolean) || []);
       setCompletedAssessments(completed);
+      
+      console.log(`Filtered responses: ${allResponses.length} -> ${validResponses.length} valid responses`);
+      console.log(`Completed assessments: ${completed.size}/${fetchedAssessments.length}`);
 
       // Fetch analytics
       const analyticsResponse = await fetch(`/api/analytics?userEmail=${encodeURIComponent(userEmail)}`);
@@ -235,16 +258,85 @@ export default function StudentDashboard() {
                         Completed: {new Date(response.completedAt).toLocaleDateString()}
                       </p>
                     </div>
-                    <div className={`text-lg font-bold ${
-                      response.score >= 80 ? 'text-green-600' :
-                      response.score >= 60 ? 'text-yellow-600' : 'text-red-600'
-                    }`}>
-                      {response.score}%
+                    <div className="text-right">
+                      {response.status === 'completed' && response.totalScore !== undefined ? (
+                        <div className={`text-lg font-bold ${
+                          response.totalScore >= 80 ? 'text-green-600' :
+                          response.totalScore >= 60 ? 'text-yellow-600' : 'text-red-600'
+                        }`}>
+                          {response.totalScore}%
+                        </div>
+                      ) : response.status === 'in_review' ? (
+                        <div className="flex items-center gap-1 text-blue-600">
+                          <Clock size={16} />
+                          <span className="text-sm font-medium">Under Review</span>
+                        </div>
+                      ) : response.status === 'pending' ? (
+                        <div className="flex items-center gap-1 text-orange-600">
+                          <Clock size={16} />
+                          <span className="text-sm font-medium">Pending Review</span>
+                        </div>
+                      ) : (
+                        <div className={`text-lg font-bold ${
+                          response.score >= 80 ? 'text-green-600' :
+                          response.score >= 60 ? 'text-yellow-600' : 'text-red-600'
+                        }`}>
+                          {response.score}%
+                        </div>
+                      )}
                     </div>
                   </div>
                   
-                  {/* Show feedback if available */}
-                  {response.answers && Object.values(response.answers).some((answer: any) => answer.tutorFeedback) && (
+                  {/* Status indicator */}
+                  <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium mb-3 ${
+                    response.status === 'completed' ? 'bg-green-100 text-green-800' :
+                    response.status === 'in_review' ? 'bg-blue-100 text-blue-800' :
+                    response.status === 'pending' ? 'bg-orange-100 text-orange-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {response.status === 'completed' ? '✅ Reviewed & Graded' :
+                     response.status === 'in_review' ? '📝 Under Review' :
+                     response.status === 'pending' ? '⏱️ Awaiting Review' :
+                     '📊 Auto-Graded'
+                    }
+                  </div>
+                  
+                  {/* Show tutor feedback if available (new review workflow) */}
+                  {response.status === 'completed' && response.tutorFeedback && response.tutorFeedback.length > 0 && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+                      <h4 className="font-medium text-blue-900 mb-3 flex items-center gap-2">
+                        <MessageSquare size={16} />
+                        Tutor Feedback
+                      </h4>
+                      <div className="space-y-3">
+                        {response.tutorFeedback.map((feedback: any, index: number) => (
+                          <div key={feedback.questionId} className="border-l-2 border-blue-300 pl-3">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="font-medium text-blue-800 text-sm">Question {index + 1}</span>
+                              <div className="flex items-center gap-2">
+                                <span className={`text-xs px-2 py-1 rounded ${
+                                  feedback.isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                                }`}>
+                                  {feedback.grade}/{feedback.maxPoints} points
+                                </span>
+                                {feedback.isCorrect && <Star size={12} className="text-yellow-500" />}
+                              </div>
+                            </div>
+                            <p className="text-blue-700 text-sm">{feedback.tutorFeedback}</p>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      {response.reviewCompletedAt && (
+                        <div className="text-xs text-blue-600 mt-3 pt-2 border-t border-blue-200">
+                          Reviewed on {new Date(response.reviewCompletedAt).toLocaleDateString()}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Legacy feedback display for old format */}
+                  {!response.tutorFeedback && response.answers && Object.values(response.answers).some((answer: any) => answer.tutorFeedback) && (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
                       <h4 className="font-medium text-blue-900 mb-2 flex items-center gap-2">
                         <MessageSquare size={16} />
@@ -263,10 +355,13 @@ export default function StudentDashboard() {
                     </div>
                   )}
                   
-                  {response.manuallyGraded && (
-                    <div className="flex items-center gap-2 mt-2 text-sm text-purple-600">
+                  {(response.manuallyGraded || response.status === 'completed') && (
+                    <div className="flex items-center gap-2 mt-3 text-sm text-purple-600">
                       <CheckCircle size={14} />
                       Reviewed by tutor
+                      {response.reviewedBy && (
+                        <span className="text-purple-500">• {response.reviewedBy.split('@')[0]}</span>
+                      )}
                     </div>
                   )}
                 </div>

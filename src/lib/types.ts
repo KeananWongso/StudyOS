@@ -40,10 +40,30 @@ export interface StudentResponse {
   dayId: string;
   studentId: string;
   answers: Record<string, StudentAnswer>;
-  canvasDrawings: Record<string, string>;
+  canvasDrawings?: Record<string, string>; // Optional for backward compatibility
   score: number;
   timeSpent: number;
   completedAt?: any;
+  
+  // NEW: Review workflow fields
+  status?: 'pending' | 'in_review' | 'completed'; // Optional for backward compatibility
+  reviewStartedAt?: Date;
+  reviewCompletedAt?: Date;
+  reviewedBy?: string; // Tutor email
+  tutorFeedback?: {
+    questionId: string;
+    aiSuggestion?: string;
+    tutorFeedback: string;
+    grade: number;
+    maxPoints: number;
+    isCorrect: boolean;
+  }[];
+  totalScore?: number;
+  feedbackSentAt?: Date;
+  
+  // Legacy fields for backward compatibility
+  manuallyGraded?: boolean;
+  assessmentId?: string;
 }
 
 export interface Analytics {

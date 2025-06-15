@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { AssessmentData } from '@/lib/types';
 import { MarkdownParser } from '@/lib/markdown-parser';
 import { SimplifiedCurriculum, SIMPLIFIED_CAMBRIDGE_CURRICULUM } from '@/lib/simplified-curriculum';
+import { useCurriculum } from '@/lib/useCurriculum';
 import { Eye, Save, Upload, AlertCircle, CheckCircle, ArrowLeft, BookOpen, Users, GraduationCap, TrendingUp, Tag, Plus, Brain } from 'lucide-react';
 import { CompactProgressTrackerLogo } from '@/components/ProgressTrackerLogo';
 import Markdown from 'markdown-to-jsx';
@@ -21,39 +22,12 @@ export default function CreateAssessmentPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
-  const [curriculum, setCurriculum] = useState<SimplifiedCurriculum>(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
-  const [curriculumLoading, setCurriculumLoading] = useState(true);
-
-  // Load curriculum from database
-  useEffect(() => {
-    const loadCurriculum = async () => {
-      if (!user?.email) return;
-      
-      try {
-        setCurriculumLoading(true);
-        const response = await fetch(`/api/curriculum?userEmail=${encodeURIComponent(user.email)}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          setCurriculum(data);
-        } else {
-          // Use default if no custom curriculum
-          setCurriculum(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
-        }
-      } catch (error) {
-        console.error('Error loading curriculum:', error);
-        setCurriculum(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
-      } finally {
-        setCurriculumLoading(false);
-      }
-    };
-    
-    loadCurriculum();
-  }, [user?.email]);
+  // Load curriculum from Firestore (imported Day 1-10 curriculum)
+  const { curriculum, loading: curriculumLoading, error: curriculumError } = useCurriculum(user?.email);
 
   // Generate example markdown based on curriculum
   const generateExampleFromCurriculum = () => {
-    if (!curriculum.strands.length) return '';
+    if (!curriculum?.strands?.length) return '';
     
     const firstStrand = curriculum.strands[0];
     const firstChapter = firstStrand.chapters[0];
@@ -444,7 +418,12 @@ Answer: Your answer here
               <div className="text-center py-8">
                 <div className="text-gray-600">Loading curriculum...</div>
               </div>
-            ) : (
+            ) : curriculumError ? (
+              <div className="text-center py-8">
+                <div className="text-red-600">Error loading curriculum: {curriculumError}</div>
+                <div className="text-sm text-gray-600 mt-2">Using default curriculum</div>
+              </div>
+            ) : curriculum ? (
               <div className="space-y-3 max-h-96 overflow-y-auto">
                 {curriculum.strands.map((strand) => (
                   <CurriculumStrandBrowser
@@ -453,6 +432,10 @@ Answer: Your answer here
                     onQuestionTemplateInsert={insertQuestionTemplate}
                   />
                 ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-gray-600">No curriculum available</div>
               </div>
             )}
 

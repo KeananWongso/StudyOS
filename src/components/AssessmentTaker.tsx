@@ -158,9 +158,10 @@ export default function AssessmentTaker({ assessmentId }: AssessmentTakerProps) 
         dayId: assessment.id,
         studentId: userEmail,
         answers,
-        canvasDrawings,
+        canvasDrawings: canvasDrawings || {},
         score: 0, // Will be calculated by API
-        timeSpent
+        timeSpent,
+        status: 'pending' // New review workflow starts as pending
       };
 
       console.log('Submitting response:', response);
@@ -227,14 +228,20 @@ export default function AssessmentTaker({ assessmentId }: AssessmentTakerProps) 
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-md">
+        <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-lg">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Assessment Submitted!</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Assessment Submitted Successfully!</h1>
           <p className="text-gray-600 mb-4">
-            Your responses have been saved successfully.
+            📝 Your work has been sent to your tutor for review.
           </p>
-          <div className="text-sm text-gray-700 mb-6">
-            Time spent: {formatTime(timeSpent)}
+          <p className="text-blue-600 mb-4">
+            ⏱️ You'll receive detailed feedback once your tutor has reviewed your submission.
+          </p>
+          <p className="text-purple-600 mb-6">
+            🔔 Check back later for your personalized feedback and grade.
+          </p>
+          <div className="text-sm text-gray-700 mb-6 bg-gray-50 p-3 rounded-lg">
+            <strong>Time spent:</strong> {formatTime(timeSpent)}
           </div>
           <Link
             href="/"

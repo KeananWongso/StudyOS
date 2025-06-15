@@ -101,16 +101,22 @@ export default function TutorAnalytics({ className = '' }: TutorAnalyticsProps) 
 
   const getOverallStats = () => {
     const totalStudents = studentsData.length;
-    const avgAccuracy = studentsData.reduce((sum, student) => sum + student.analysis.averageAccuracy, 0) / totalStudents;
-    const totalQuestions = studentsData.reduce((sum, student) => sum + student.analysis.totalQuestionsAttempted, 0);
+    const avgAccuracy = totalStudents > 0 
+      ? studentsData.reduce((sum, student) => sum + (student.analysis?.averageAccuracy || 0), 0) / totalStudents 
+      : 0;
+    const totalQuestions = studentsData.reduce((sum, student) => sum + (student.analysis?.totalQuestionsAttempted || 0), 0);
     
     // Collect all weak topics across students
-    const allWeakTopics = studentsData.flatMap(student => student.analysis.weakTopics);
+    const allWeakTopics = studentsData.flatMap(student => 
+      (student.analysis?.weakTopics || []).filter(topic => topic && topic.topicPath)
+    );
     const topicCounts = new Map<string, number>();
     
     allWeakTopics.forEach(topic => {
-      const count = topicCounts.get(topic.topicPath) || 0;
-      topicCounts.set(topic.topicPath, count + 1);
+      if (topic && topic.topicPath) {
+        const count = topicCounts.get(topic.topicPath) || 0;
+        topicCounts.set(topic.topicPath, count + 1);
+      }
     });
     
     const mostProblematicTopics = Array.from(topicCounts.entries())

@@ -22,13 +22,17 @@ import {
   Target,
   Play,
   BookOpen,
-  RefreshCw
+  RefreshCw,
+  ClipboardList
 } from 'lucide-react';
 import Link from 'next/link';
 import { CompactProgressTrackerLogo } from './ProgressTrackerLogo';
 import UserMenu from './UserMenu';
 import StudentDashboard from './StudentDashboard';
+import ReviewQueue from './ReviewQueue';
+import AssessmentReview from './AssessmentReview';
 import { SimplifiedCurriculum, SIMPLIFIED_CAMBRIDGE_CURRICULUM } from '@/lib/simplified-curriculum';
+import { useCurriculum } from '@/lib/useCurriculum';
 
 // Tutor interfaces
 interface Assessment {
@@ -110,18 +114,23 @@ function TutorHomeDashboard() {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [responses, setResponses] = useState<StudentResponse[]>([]);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
-  const [curriculum, setCurriculum] = useState<SimplifiedCurriculum>(SIMPLIFIED_CAMBRIDGE_CURRICULUM);
+  // Load curriculum from Firestore (imported Day 1-10 curriculum)
+  const { curriculum, loading: curriculumLoading } = useCurriculum(user?.email);
   const [loading, setLoading] = useState(true);
   const [selectedResponse, setSelectedResponse] = useState<StudentResponse | null>(null);
   const [showResponseViewer, setShowResponseViewer] = useState(false);
   const [manualGrades, setManualGrades] = useState<{ [questionId: string]: any }>({});
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [assessmentToDelete, setAssessmentToDelete] = useState<Assessment | null>(null);
+  
+  // New state for review workflow
+  const [viewMode, setViewMode] = useState<'dashboard' | 'review-queue' | 'reviewing'>('dashboard');
+  const [currentReviewSubmission, setCurrentReviewSubmission] = useState<any>(null);
+  const [isCleaningUp, setIsCleaningUp] = useState(false);
 
   useEffect(() => {
     if (user?.email) {
       loadDashboardData();
-      loadCurriculum();
     }
   }, [user?.email]);
 
@@ -190,17 +199,6 @@ function TutorHomeDashboard() {
     }
   };
 
-  const loadCurriculum = async () => {
-    try {
-      const response = await fetch(`/api/curriculum?userEmail=${encodeURIComponent(user?.email || '')}`);
-      if (response.ok) {
-        const data = await response.json();
-        setCurriculum(data);
-      }
-    } catch (error) {
-      console.error('Error loading curriculum:', error);
-    }
-  };
 
   const getResponsesForAssessment = (assessmentId: string) => {
     const matchingResponses = responses.filter(response => {
@@ -318,6 +316,52 @@ function TutorHomeDashboard() {
     }
   };
 
+  // Review workflow functions
+  const handleStartReview = (submission: any) => {
+    setCurrentReviewSubmission(submission);
+    setViewMode('reviewing');
+  };
+
+  const handleBackToQueue = () => {
+    setCurrentReviewSubmission(null);
+    setViewMode('review-queue');
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentReviewSubmission(null);
+    setViewMode('dashboard');
+  };
+
+  const handleCleanupData = async () => {
+    if (!user?.email) return;
+    
+    setIsCleaningUp(true);
+    try {
+      console.log('Starting data cleanup...');
+      const response = await fetch('/api/cleanup-dashboard-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tutorEmail: user.email })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Cleanup completed:', result);
+        alert(`Cleanup completed! Removed ${result.cleaned.globalResponses + result.cleaned.userResponses} orphaned responses.`);
+        // Refresh dashboard data
+        await loadDashboardData();
+      } else {
+        console.error('Cleanup failed');
+        alert('Cleanup failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during cleanup:', error);
+      alert('Cleanup failed. Please try again.');
+    } finally {
+      setIsCleaningUp(false);
+    }
+  };
+
   const getStudentsNeedingAttention = () => {
     const studentStats = new Map();
     
@@ -382,11 +426,11 @@ function TutorHomeDashboard() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <CompactProgressTrackerLogo size={48} />
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
                   Progress Tracker - Tutor Dashboard
                 </h1>
                 <p className="text-gray-600">
@@ -395,28 +439,66 @@ function TutorHomeDashboard() {
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
-              <Link
-                href="/create-assessment"
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <Plus size={16} />
-                Create Assessment
-              </Link>
-              <Link
-                href="/tutor/analytics"
-                className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                <Brain size={16} />
-                Analytics
-              </Link>
+            <div className="flex flex-wrap items-center gap-2 lg:gap-3">
+              {viewMode !== 'dashboard' && (
+                <button
+                  onClick={handleBackToDashboard}
+                  className="flex items-center gap-1.5 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-200 shadow-md hover:shadow-lg font-medium text-sm"
+                >
+                  <ArrowLeft size={16} />
+                  <span className="hidden sm:inline">Dashboard</span>
+                </button>
+              )}
+              
+              {viewMode === 'dashboard' && (
+                <>
+                  <button
+                    onClick={() => setViewMode('review-queue')}
+                    className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg font-medium text-sm"
+                  >
+                    <ClipboardList size={16} />
+                    <span className="hidden sm:inline">Review Queue</span>
+                  </button>
+                  <Link
+                    href="/create-assessment"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg font-medium text-sm"
+                  >
+                    <Plus size={16} />
+                    <span className="hidden sm:inline">Create</span>
+                    <span className="hidden md:inline">Assessment</span>
+                  </Link>
+                  <Link
+                    href="/tutor/analytics"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg font-medium text-sm"
+                  >
+                    <Brain size={16} />
+                    <span className="hidden sm:inline">Analytics</span>
+                  </Link>
+                  <button
+                    onClick={handleCleanupData}
+                    disabled={isCleaningUp}
+                    className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all duration-200 shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                    title="Clean up orphaned student data"
+                  >
+                    {isCleaningUp ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <RefreshCw size={16} />
+                    )}
+                    <span className="hidden sm:inline">{isCleaningUp ? 'Cleaning...' : 'Cleanup'}</span>
+                  </button>
+                </>
+              )}
               <UserMenu />
             </div>
           </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {/* Conditional Content Based on View Mode */}
+        {viewMode === 'dashboard' && (
+          <>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center">
               <div className="bg-blue-100 p-3 rounded-lg">
@@ -576,7 +658,7 @@ function TutorHomeDashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {curriculum.strands.slice(0, 4).map((strand) => (
+                {curriculum?.strands?.slice(0, 4).map((strand) => (
                   <div key={strand.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center gap-3 mb-2">
                       <div 
@@ -663,6 +745,21 @@ function TutorHomeDashboard() {
             </div>
           </div>
         </div>
+          </>
+        )}
+
+        {/* Review Queue View */}
+        {viewMode === 'review-queue' && (
+          <ReviewQueue onStartReview={handleStartReview} />
+        )}
+
+        {/* Assessment Review View */}
+        {viewMode === 'reviewing' && currentReviewSubmission && (
+          <AssessmentReview 
+            submissionId={currentReviewSubmission.id}
+            onBack={handleBackToQueue}
+          />
+        )}
       </div>
 
       {/* Response Viewer Modal */}

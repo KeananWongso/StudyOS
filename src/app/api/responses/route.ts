@@ -68,32 +68,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Calculate score and enhance answers with topic information
-    let earnedScore = 0;
+    // NEW: No automatic grading - store answers without calculating scores
     const enhancedAnswers: any = {};
 
     Object.entries(studentResponse.answers).forEach(([questionId, answer]: [string, any]) => {
-      earnedScore += answer.pointsEarned;
-      
       // Find the corresponding question to get topic information
       const question = assessment?.questions?.find((q: any) => q.id === questionId);
       
       enhancedAnswers[questionId] = {
-        ...answer,
+        questionId,
+        answer: answer.answer,
+        // Remove automatic grading fields
+        // isCorrect: will be determined by tutor
+        // pointsEarned: will be set by tutor
+        
         // Add topic information for analysis
         topicPath: question?.topicPath,
         strand: question?.strand,
         chapter: question?.chapter,
-        subtopic: question?.subtopic
+        subtopic: question?.subtopic,
+        maxPoints: question?.points || 5
       };
     });
 
     const enhancedResponse = {
       ...studentResponse,
       answers: enhancedAnswers,
-      score: earnedScore,
+      score: 0, // No automatic scoring
       completedAt: new Date(),
-      assessmentId: studentResponse.dayId // For easier lookup
+      assessmentId: studentResponse.dayId,
+      
+      // NEW: Review workflow fields
+      status: 'pending' as const,
+      reviewStartedAt: null,
+      reviewCompletedAt: null,
+      reviewedBy: null,
+      tutorFeedback: null,
+      totalScore: null,
+      feedbackSentAt: null
     };
     
     // Save to BOTH user-scoped collection AND global collection for tutor access
@@ -123,8 +135,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ 
       id: userDocRef.id,
       globalId: globalDocRef.id,
-      score: enhancedResponse.score,
-      message: 'Response submitted successfully' 
+      status: 'pending',
+      message: 'Assessment submitted successfully for tutor review'
     });
   } catch (error) {
     console.error('Error submitting response:', error);
