@@ -158,7 +158,17 @@ Respond in JSON format with these exact fields:
   const analysisText = result.choices[0].message.content;
 
   try {
-    const analysisData = JSON.parse(analysisText);
+    // Clean the response text - remove markdown code blocks if present
+    let cleanText = analysisText.trim();
+    
+    // Remove markdown code blocks
+    if (cleanText.startsWith('```json')) {
+      cleanText = cleanText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (cleanText.startsWith('```')) {
+      cleanText = cleanText.replace(/^```\s*/, '').replace(/\s*```$/, '');
+    }
+    
+    const analysisData = JSON.parse(cleanText);
     
     // Add metadata
     analysisData.metadata = {
@@ -168,7 +178,10 @@ Respond in JSON format with these exact fields:
     };
     
     return analysisData;
-  } catch {
+  } catch (parseError) {
+    console.log('JSON parsing failed for GPT-4o response:', analysisText);
+    console.log('Parse error:', parseError);
+    
     // If JSON parsing fails, create structured response
     return {
       analysisComplete: true,
@@ -176,7 +189,7 @@ Respond in JSON format with these exact fields:
       analysis: analysisText,
       workingQuality: 'Analysis completed',
       errors: 'See analysis for details',
-      suggestedFeedback: analysisText,
+      suggestedFeedback: analysisText.length > 100 ? analysisText.substring(0, 100) + '...' : analysisText,
       recommendedPoints: 7,
       strengths: ['Mathematical work attempted'],
       improvements: ['See detailed analysis'],

@@ -183,6 +183,9 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
   const analyzeCanvas = async (questionId: string) => {
     if (!submission?.canvasDrawings?.[questionId]) return;
     
+    // Prevent duplicate analysis if already loading
+    if (loadingAnalysis[questionId]) return;
+    
     setLoadingAnalysis(prev => ({ ...prev, [questionId]: true }));
     
     try {
@@ -222,13 +225,45 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
   };
 
   const updateFeedback = (questionId: string, field: 'feedback' | 'grade' | 'isCorrect', value: any) => {
-    setFeedback(prev => ({
-      ...prev,
-      [questionId]: {
-        ...prev[questionId],
-        [field]: value
+    const question = questions.find(q => q.id === questionId);
+    const maxPoints = question?.points || 5;
+    
+    setFeedback(prev => {
+      const currentFeedback = prev[questionId] || { feedback: '', grade: 0, isCorrect: false };
+      
+      // If marking as correct, automatically set full points
+      if (field === 'isCorrect' && value === true) {
+        return {
+          ...prev,
+          [questionId]: {
+            ...currentFeedback,
+            isCorrect: true,
+            grade: maxPoints
+          }
+        };
       }
-    }));
+      
+      // If unmarking as correct, reset to 0 points
+      if (field === 'isCorrect' && value === false) {
+        return {
+          ...prev,
+          [questionId]: {
+            ...currentFeedback,
+            isCorrect: false,
+            grade: 0
+          }
+        };
+      }
+      
+      // For other field updates
+      return {
+        ...prev,
+        [questionId]: {
+          ...currentFeedback,
+          [field]: value
+        }
+      };
+    });
   };
 
   const calculateTotalScore = (tutorFeedbackData: any[]): number => {
@@ -245,13 +280,21 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
       // Prepare tutor feedback data
       const tutorFeedbackData = Object.entries(feedback).map(([questionId, fb]) => {
         const question = questions.find(q => q.id === questionId);
+        const isCorrect = fb?.isCorrect || false;
+        
+        // Provide default feedback if none provided
+        let feedbackText = fb?.feedback || '';
+        if (!feedbackText.trim()) {
+          feedbackText = isCorrect ? 'Good work!' : 'Please review this problem.';
+        }
+        
         return {
           questionId,
           aiSuggestion: aiAnalyses[questionId]?.suggestedFeedback || null,
-          tutorFeedback: fb.feedback,
-          grade: fb.grade,
+          tutorFeedback: feedbackText,
+          grade: fb?.grade || 0,
           maxPoints: question?.points || 5,
-          isCorrect: fb.isCorrect
+          isCorrect
         };
       });
 
@@ -270,8 +313,8 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
   const canCompleteReview = () => {
     return questions.every(q => 
       feedback[q.id] && 
-      feedback[q.id].feedback.trim() !== '' &&
       typeof feedback[q.id].grade === 'number'
+      // Note: Removed feedback text requirement - tutors can complete with just grading
     );
   };
 
@@ -471,20 +514,38 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-medium text-gray-900">Student Working:</h4>
-                      {!aiAnalysis && (
-                        <button
-                          onClick={() => analyzeCanvas(currentQuestion.id)}
-                          disabled={loadingAnalysis[currentQuestion.id]}
-                          className="flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 text-sm"
-                        >
-                          {loadingAnalysis[currentQuestion.id] ? (
-                            <Loader2 size={14} className="animate-spin" />
-                          ) : (
-                            <Sparkles size={14} />
-                          )}
-                          {loadingAnalysis[currentQuestion.id] ? 'Analyzing...' : 'Get AI Analysis'}
-                        </button>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {!aiAnalysis ? (
+                          <button
+                            onClick={() => analyzeCanvas(currentQuestion.id)}
+                            disabled={loadingAnalysis[currentQuestion.id]}
+                            className="flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 text-sm"
+                          >
+                            {loadingAnalysis[currentQuestion.id] ? (
+                              <Loader2 size={14} className="animate-spin" />
+                            ) : (
+                              <Sparkles size={14} />
+                            )}
+                            {loadingAnalysis[currentQuestion.id] ? 'Analyzing...' : 'Get AI Analysis'}
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              setAiAnalyses(prev => ({ ...prev, [currentQuestion.id]: undefined }));
+                              setTimeout(() => analyzeCanvas(currentQuestion.id), 100);
+                            }}
+                            disabled={loadingAnalysis[currentQuestion.id]}
+                            className="flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 text-sm"
+                          >
+                            {loadingAnalysis[currentQuestion.id] ? (
+                              <Loader2 size={14} className="animate-spin" />
+                            ) : (
+                              <RotateCcw size={14} />
+                            )}
+                            {loadingAnalysis[currentQuestion.id] ? 'Re-analyzing...' : 'Re-analyze'}
+                          </button>
+                        )}
+                      </div>
                     </div>
                     
                     <div className="border-2 border-gray-300 rounded-lg p-4 bg-white">
@@ -517,32 +578,46 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                     <div className="space-y-3 text-sm">
                       <div>
                         <strong className="text-purple-900">Analysis:</strong>
-                        <p className="text-purple-800 mt-1">{aiAnalysis.analysis}</p>
+                        <p className="text-purple-800 mt-1 whitespace-pre-wrap">{aiAnalysis.analysis}</p>
                       </div>
+                      
+                      {aiAnalysis.workingQuality && (
+                        <div>
+                          <strong className="text-purple-900">Work Quality:</strong>
+                          <p className="text-purple-800 mt-1">{aiAnalysis.workingQuality}</p>
+                        </div>
+                      )}
+                      
+                      {aiAnalysis.errors && (
+                        <div>
+                          <strong className="text-purple-900">Errors Detected:</strong>
+                          <p className="text-purple-800 mt-1">{aiAnalysis.errors}</p>
+                        </div>
+                      )}
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                           <strong className="text-purple-900">Strengths:</strong>
                           <ul className="text-purple-800 mt-1 list-disc list-inside">
-                            {aiAnalysis.strengths.map((strength, idx) => (
+                            {Array.isArray(aiAnalysis.strengths) ? aiAnalysis.strengths.map((strength, idx) => (
                               <li key={idx}>{strength}</li>
-                            ))}
+                            )) : <li>{aiAnalysis.strengths || 'None identified'}</li>}
                           </ul>
                         </div>
                         
                         <div>
                           <strong className="text-purple-900">Improvements:</strong>
                           <ul className="text-purple-800 mt-1 list-disc list-inside">
-                            {aiAnalysis.improvements.map((improvement, idx) => (
+                            {Array.isArray(aiAnalysis.improvements) ? aiAnalysis.improvements.map((improvement, idx) => (
                               <li key={idx}>{improvement}</li>
-                            ))}
+                            )) : <li>{aiAnalysis.improvements || 'None suggested'}</li>}
                           </ul>
                         </div>
                       </div>
 
                       <div>
                         <strong className="text-purple-900">AI Suggested Feedback:</strong>
-                        <p className="text-purple-800 mt-1 italic">"{aiAnalysis.suggestedFeedback}"</p>
+                        <p className="text-purple-800 mt-1 italic whitespace-pre-wrap">"{aiAnalysis.suggestedFeedback}"</p>
                       </div>
                     </div>
                   </div>
@@ -555,13 +630,13 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Feedback for Student:
+                        Feedback for Student: <span className="text-gray-500 font-normal">(Optional)</span>
                       </label>
                       <textarea
                         value={currentFeedback.feedback}
                         onChange={(e) => updateFeedback(currentQuestion.id, 'feedback', e.target.value)}
-                        placeholder={aiAnalysis?.suggestedFeedback || "Provide detailed feedback for the student..."}
-                        className="w-full h-24 p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder={aiAnalysis?.suggestedFeedback || "Optional: Provide feedback for the student (e.g., 'Good work!', 'Check your calculation', etc.)"}
+                        className="w-full h-24 p-3 border-2 border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 placeholder-gray-500"
                       />
                     </div>
                     
@@ -576,7 +651,12 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                           max={currentQuestion.points}
                           value={currentFeedback.grade}
                           onChange={(e) => updateFeedback(currentQuestion.id, 'grade', parseInt(e.target.value) || 0)}
-                          className="w-20 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          disabled={currentFeedback.isCorrect}
+                          className={`w-20 p-2 border-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                            currentFeedback.isCorrect 
+                              ? 'bg-green-50 border-green-300 text-green-800 cursor-not-allowed' 
+                              : 'bg-white border-gray-300 text-gray-900'
+                          }`}
                         />
                         <span className="text-sm text-gray-600 ml-1">/ {currentQuestion.points}</span>
                       </div>
@@ -587,10 +667,13 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                           id={`correct-${currentQuestion.id}`}
                           checked={currentFeedback.isCorrect}
                           onChange={(e) => updateFeedback(currentQuestion.id, 'isCorrect', e.target.checked)}
-                          className="h-4 w-4 text-blue-600 rounded"
+                          className="h-4 w-4 text-green-600 rounded"
                         />
                         <label htmlFor={`correct-${currentQuestion.id}`} className="text-sm font-medium text-gray-700">
                           Mark as Correct
+                          {currentFeedback.isCorrect && (
+                            <span className="text-green-600 ml-1">(Full points awarded)</span>
+                          )}
                         </label>
                       </div>
                     </div>

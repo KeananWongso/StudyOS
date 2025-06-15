@@ -26,6 +26,8 @@ interface AssessmentResult {
   maxScore: number;
   timeSpent: number;
   questions: QuestionResult[];
+  reviewStatus: 'pending' | 'in_review' | 'completed';
+  hasBeenReviewed: boolean;
 }
 
 export default function EnhancedResults() {
@@ -78,6 +80,8 @@ export default function EnhancedResults() {
               sum + (answer.maxPoints || 5), 0
             ),
             timeSpent: resp.timeSpent || 0,
+            reviewStatus: resp.status || 'pending',
+            hasBeenReviewed: resp.status === 'completed',
             questions: Object.entries(resp.answers).map(([questionId, answer]: [string, any]) => {
               // Find the actual question from the assessment
               const actualQuestion = assessment?.questions?.find((q: any) => q.id === questionId);
@@ -211,7 +215,18 @@ export default function EnhancedResults() {
                 {/* Assessment Overview */}
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-semibold text-gray-900">{selectedResult.assessmentTitle}</h2>
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-900">{selectedResult.assessmentTitle}</h2>
+                      <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium mt-1 ${
+                        selectedResult.reviewStatus === 'completed' ? 'bg-green-100 text-green-800' :
+                        selectedResult.reviewStatus === 'in_review' ? 'bg-blue-100 text-blue-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {selectedResult.reviewStatus === 'completed' ? '✅ Reviewed' :
+                         selectedResult.reviewStatus === 'in_review' ? '📝 Under Review' :
+                         '⏳ Awaiting Review'}
+                      </div>
+                    </div>
                     <div className="text-right">
                       <div className={`text-2xl font-bold ${
                         (selectedResult.totalScore / selectedResult.maxScore) >= 0.8 ? 'text-green-600' :
@@ -274,6 +289,22 @@ export default function EnhancedResults() {
                 {/* Question-by-Question Review */}
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Question Review</h3>
+                  
+                  {/* Info banner for unreviewed assignments */}
+                  {!selectedResult.hasBeenReviewed && (
+                    <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="text-blue-600 mt-0.5">ℹ️</div>
+                        <div className="text-blue-900">
+                          <h4 className="font-medium mb-1">Assignment Under Review</h4>
+                          <p className="text-sm">
+                            Your tutor is currently reviewing this assignment. Correct answers and detailed feedback 
+                            will be available once the review is complete.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="space-y-4">
                     {selectedResult.questions.map((question, index) => (
                       <div key={question.questionId} className={`p-4 rounded-lg border-l-4 ${
@@ -303,8 +334,19 @@ export default function EnhancedResults() {
                         <div className="text-sm text-gray-700">
                           <p className="mb-1"><strong>Question:</strong> {question.question}</p>
                           <p className="mb-1"><strong>Your Answer:</strong> {String(question.studentAnswer)}</p>
-                          {!question.isCorrect && question.correctAnswer && question.correctAnswer !== 'Answer not available' && (
-                            <p className="text-green-700"><strong>Correct Answer:</strong> {String(question.correctAnswer)}</p>
+                          
+                          {/* Only show correct answers if the assignment has been reviewed by a tutor */}
+                          {selectedResult.hasBeenReviewed ? (
+                            // Show correct answer for incorrect responses after tutor review
+                            !question.isCorrect && question.correctAnswer && question.correctAnswer !== 'Answer not available' && (
+                              <p className="text-green-700"><strong>Correct Answer:</strong> {String(question.correctAnswer)}</p>
+                            )
+                          ) : (
+                            // Show status message for unreviewed assignments
+                            <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-yellow-800 text-xs">
+                              <span className="font-medium">⏳ Awaiting tutor review</span>
+                              <p className="mt-1">Correct answers will be shown after your tutor reviews this assignment.</p>
+                            </div>
                           )}
                         </div>
                       </div>
