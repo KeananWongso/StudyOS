@@ -64,7 +64,12 @@ export default function DrawingCanvas({
       // Clear and redraw everything
       redrawCanvas();
     }
-  }, [width, height, strokes, showGrid, initialData]);
+  }, [width, height, showGrid, initialData]);
+
+  // Separate effect for redrawing when strokes change
+  useEffect(() => {
+    redrawCanvas();
+  }, [strokes]);
 
   const loadImageData = (imageData: string) => {
     const canvas = canvasRef.current;
@@ -133,27 +138,45 @@ export default function DrawingCanvas({
   };
 
   const drawStroke = (ctx: CanvasRenderingContext2D, stroke: CanvasStroke) => {
-    if (stroke.points.length < 2) return;
+    if (stroke.points.length < 1) return;
 
+    // Set stroke properties
     ctx.strokeStyle = stroke.color;
     ctx.lineWidth = stroke.size;
+    ctx.globalAlpha = 0.9; // Increase opacity for better visibility
     ctx.globalCompositeOperation = stroke.color === 'transparent' ? 'destination-out' : 'source-over';
 
     ctx.beginPath();
-    ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+    
+    if (stroke.points.length === 1) {
+      // Draw a dot for single points
+      ctx.arc(stroke.points[0].x, stroke.points[0].y, stroke.size / 2, 0, 2 * Math.PI);
+      ctx.fill();
+    } else {
+      // Draw line for multiple points
+      ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
 
-    for (let i = 1; i < stroke.points.length; i++) {
-      const prevPoint = stroke.points[i - 1];
-      const currentPoint = stroke.points[i];
+      for (let i = 1; i < stroke.points.length; i++) {
+        const prevPoint = stroke.points[i - 1];
+        const currentPoint = stroke.points[i];
+        
+        if (i === 1) {
+          // First segment - draw straight line
+          ctx.lineTo(currentPoint.x, currentPoint.y);
+        } else {
+          // Use quadratic curves for smoother lines
+          const midX = (prevPoint.x + currentPoint.x) / 2;
+          const midY = (prevPoint.y + currentPoint.y) / 2;
+          
+          ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, midY);
+        }
+      }
       
-      // Use quadratic curves for smoother lines
-      const midX = (prevPoint.x + currentPoint.x) / 2;
-      const midY = (prevPoint.y + currentPoint.y) / 2;
-      
-      ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, midY);
+      ctx.stroke();
     }
     
-    ctx.stroke();
+    // Reset alpha and composite operation
+    ctx.globalAlpha = 1.0;
     ctx.globalCompositeOperation = 'source-over';
   };
 
@@ -210,9 +233,9 @@ export default function DrawingCanvas({
     
     if (currentStroke.length > 0) {
       const newStroke: CanvasStroke = {
-        points: currentStroke,
+        points: [...currentStroke], // Create a copy to avoid reference issues
         color: tool === 'eraser' ? 'transparent' : penColor,
-        size: tool === 'eraser' ? penSize * 2 : penSize,
+        size: tool === 'eraser' ? penSize * 3 : penSize, // Make eraser larger for better visibility
         timestamp: Date.now()
       };
 
@@ -254,6 +277,21 @@ export default function DrawingCanvas({
     setRedoStack([]);
     setStrokes([]);
     setCurrentStroke([]);
+    
+    // Immediately clear the canvas visually
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (canvas && ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Redraw grid if enabled
+      if (showGrid) {
+        drawGrid(ctx, canvas.width, canvas.height);
+      }
+      // Trigger save with empty canvas
+      if (onCanvasChange) {
+        onCanvasChange(canvas.toDataURL('image/png'));
+      }
+    }
   };
 
   return (

@@ -450,6 +450,12 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                       </div>
                     </div>
                   )}
+                  
+                  {/* Expected Answer */}
+                  <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                    <div className="text-sm font-medium text-green-800 mb-1">Expected Answer:</div>
+                    <div className="text-green-700 font-medium">{currentQuestion.correctAnswer}</div>
+                  </div>
                 </div>
 
                 {/* Student Answer */}
@@ -481,12 +487,17 @@ export default function AssessmentReview({ submissionId, onBack }: AssessmentRev
                       )}
                     </div>
                     
-                    <div className="border border-gray-200 rounded-lg p-3 bg-white">
+                    <div className="border-2 border-gray-300 rounded-lg p-4 bg-white">
                       <img 
                         src={submission.canvasDrawings[currentQuestion.id]} 
                         alt={`Student working for question ${currentQuestionIndex + 1}`}
-                        className="max-w-full h-auto rounded"
-                        style={{ maxHeight: '400px' }}
+                        className="max-w-full h-auto rounded shadow-sm"
+                        style={{ 
+                          maxHeight: '500px',
+                          minHeight: '200px',
+                          filter: 'contrast(1.1) brightness(1.0)',
+                          imageRendering: 'crisp-edges'
+                        }}
                       />
                     </div>
                   </div>

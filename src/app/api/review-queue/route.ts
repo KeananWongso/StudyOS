@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import { safeToDate, safeGetTime } from '@/lib/dateUtils';
 
 export async function GET(request: NextRequest) {
   try {
@@ -80,7 +81,7 @@ export async function GET(request: NextRequest) {
           studentName: data.displayName || data.studentEmail?.split('@')[0] || 'Unknown Student',
           assessmentId,
           assessmentTitle: `Day ${assessment.day}: ${assessment.title}`,
-          submittedAt: data.completedAt?.toDate ? data.completedAt.toDate() : new Date(data.completedAt),
+          submittedAt: safeToDate(data.completedAt),
           status: data.status || 'pending', // Default to pending for existing submissions
           questionCount: Object.keys(data.answers || {}).length,
           timeSpent: data.timeSpent || 0,
@@ -90,8 +91,8 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    // Sort by submission time (newest first)
-    submissions.sort((a, b) => b.submittedAt.getTime() - a.submittedAt.getTime());
+    // Sort by submission time (newest first) using safe date handling
+    submissions.sort((a, b) => safeGetTime(b.submittedAt) - safeGetTime(a.submittedAt));
 
     console.log(`Returning ${submissions.length} submissions for review queue`);
 

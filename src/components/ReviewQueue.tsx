@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthProvider';
+import { formatTimeAgo as safeFormatTimeAgo } from '@/lib/dateUtils';
 import { 
   Clock, 
   Eye, 
@@ -93,20 +94,7 @@ export default function ReviewQueue({ onStartReview }: ReviewQueueProps) {
     }
   };
 
-  const formatTimeAgo = (date: Date) => {
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffHours / 24);
-
-    if (diffDays > 0) {
-      return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-    } else if (diffHours > 0) {
-      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    } else {
-      return 'Just now';
-    }
-  };
+  // Use the safe formatTimeAgo function from dateUtils
 
   const formatTimeSpent = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -208,7 +196,7 @@ export default function ReviewQueue({ onStartReview }: ReviewQueueProps) {
                     </span>
                     <span className="flex items-center gap-1">
                       <Calendar size={12} />
-                      {formatTimeAgo(submission.submittedAt)}
+                      {safeFormatTimeAgo(submission.submittedAt)}
                     </span>
                     <span className="flex items-center gap-1">
                       <Clock size={12} />

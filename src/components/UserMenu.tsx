@@ -47,7 +47,7 @@ export default function UserMenu() {
       {/* User Profile Button */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="group flex items-center space-x-2 p-1.5 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         {/* Avatar */}
         <div className="relative">
@@ -103,18 +103,8 @@ export default function UserMenu() {
           )}
         </div>
 
-        {/* User Info */}
-        <div className="hidden md:block text-left">
-          <div className="text-sm font-medium text-gray-900 truncate max-w-32">
-            {user.displayName}
-          </div>
-          <div className="text-xs text-gray-500 capitalize">
-            {user.role || 'Setting up...'}
-          </div>
-        </div>
-
-        {/* Dropdown Arrow */}
-        <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
+        {/* Dropdown Arrow - only show on hover */}
+        <ChevronDown className={`w-3 h-3 text-gray-400 transition-all opacity-0 group-hover:opacity-100 ${isMenuOpen ? 'rotate-180 opacity-100' : ''}`} />
       </button>
 
       {/* Dropdown Menu */}

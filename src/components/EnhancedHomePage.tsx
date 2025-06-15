@@ -33,6 +33,7 @@ import ReviewQueue from './ReviewQueue';
 import AssessmentReview from './AssessmentReview';
 import { SimplifiedCurriculum, SIMPLIFIED_CAMBRIDGE_CURRICULUM } from '@/lib/simplified-curriculum';
 import { useCurriculum } from '@/lib/useCurriculum';
+import { createActivityItem, sortByDate } from '@/lib/dateUtils';
 
 // Tutor interfaces
 interface Assessment {
@@ -179,18 +180,11 @@ function TutorHomeDashboard() {
       console.log('Student responses response:', responsesData);
       setResponses(responsesData.responses || []);
       
-      // Generate activity feed from responses
-      const activityItems = (responsesData.responses || []).map((response: any) => ({
-        id: response.id,
-        studentEmail: response.studentEmail || response.submittedBy,
-        studentName: response.displayName || response.studentEmail?.split('@')[0] || 'Unknown',
-        action: 'completed' as const,
-        assessmentTitle: response.assessmentTitle || `Day ${response.dayId}`,
-        score: response.score,
-        timestamp: new Date(response.completedAt?.seconds * 1000 || response.completedAt)
-      })).sort((a: ActivityItem, b: ActivityItem) => b.timestamp.getTime() - a.timestamp.getTime());
+      // Generate activity feed from responses using safe date handling
+      const activityItems = (responsesData.responses || []).map(createActivityItem);
+      const sortedActivityItems = sortByDate(activityItems, 'timestamp', 'desc');
       
-      setActivities(activityItems);
+      setActivities(sortedActivityItems);
       
     } catch (error) {
       console.error('Error loading dashboard data:', error);
@@ -477,7 +471,7 @@ function TutorHomeDashboard() {
                   <button
                     onClick={handleCleanupData}
                     disabled={isCleaningUp}
-                    className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all duration-200 shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                    className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     title="Clean up orphaned student data"
                   >
                     {isCleaningUp ? (
@@ -485,7 +479,6 @@ function TutorHomeDashboard() {
                     ) : (
                       <RefreshCw size={16} />
                     )}
-                    <span className="hidden sm:inline">{isCleaningUp ? 'Cleaning...' : 'Cleanup'}</span>
                   </button>
                 </>
               )}

@@ -50,28 +50,52 @@ export default function EnhancedResults() {
       const data = await response.json();
       
       if (data.responses && data.responses.length > 0) {
-        // Transform responses into results format
-        const assessmentResults: AssessmentResult[] = data.responses.map((resp: any) => ({
-          id: resp.id,
-          assessmentTitle: `Day ${resp.dayId}: Assessment`,
-          completedAt: new Date(resp.completedAt),
-          totalScore: resp.score || 0,
-          maxScore: Object.values(resp.answers).reduce((sum: number, answer: any) => 
-            sum + (answer.pointsEarned || 0) + (answer.isCorrect ? 0 : (answer.maxPoints || 5)), 0
-          ),
-          timeSpent: resp.timeSpent || 0,
-          questions: Object.values(resp.answers).map((answer: any) => ({
-            questionId: answer.questionId,
-            question: 'Question content', // Would need to fetch from assessment
-            studentAnswer: answer.answer,
-            correctAnswer: 'Correct answer', // Would need to fetch from assessment
-            isCorrect: answer.isCorrect,
-            pointsEarned: answer.pointsEarned || 0,
-            maxPoints: 5, // Default, would get from assessment
-            topicPath: answer.topicPath,
-            topicDisplay: answer.topicPath ? formatTopicPath(answer.topicPath) : undefined
-          }))
-        }));
+        // Get unique assessment IDs to fetch assessment data
+        const assessmentIds = [...new Set(data.responses.map((resp: any) => resp.assessmentId || resp.dayId))];
+        
+        // Fetch assessment data for all assessments
+        const assessmentResponse = await fetch('/api/assessments');
+        const assessmentData = await assessmentResponse.json();
+        const assessmentMap = new Map();
+        
+        if (assessmentData.assessments) {
+          assessmentData.assessments.forEach((assessment: any) => {
+            assessmentMap.set(assessment.id, assessment);
+          });
+        }
+        
+        // Transform responses into results format with actual assessment data
+        const assessmentResults: AssessmentResult[] = data.responses.map((resp: any) => {
+          const assessmentId = resp.assessmentId || resp.dayId;
+          const assessment = assessmentMap.get(assessmentId);
+          
+          return {
+            id: resp.id,
+            assessmentTitle: assessment?.title || `Day ${resp.dayId}: Assessment`,
+            completedAt: new Date(resp.completedAt?.seconds ? resp.completedAt.seconds * 1000 : resp.completedAt),
+            totalScore: resp.score || 0,
+            maxScore: assessment?.totalPoints || Object.values(resp.answers).reduce((sum: number, answer: any) => 
+              sum + (answer.maxPoints || 5), 0
+            ),
+            timeSpent: resp.timeSpent || 0,
+            questions: Object.entries(resp.answers).map(([questionId, answer]: [string, any]) => {
+              // Find the actual question from the assessment
+              const actualQuestion = assessment?.questions?.find((q: any) => q.id === questionId);
+              
+              return {
+                questionId,
+                question: actualQuestion?.question || 'Question content not available',
+                studentAnswer: answer.answer,
+                correctAnswer: actualQuestion?.correctAnswer || actualQuestion?.answer || 'Answer not available',
+                isCorrect: answer.isCorrect,
+                pointsEarned: answer.pointsEarned || 0,
+                maxPoints: actualQuestion?.points || answer.maxPoints || 5,
+                topicPath: answer.topicPath || actualQuestion?.topicPath,
+                topicDisplay: (answer.topicPath || actualQuestion?.topicPath) ? formatTopicPath(answer.topicPath || actualQuestion?.topicPath) : undefined
+              };
+            })
+          };
+        });
         
         setResults(assessmentResults);
         if (assessmentResults.length > 0) {
@@ -277,9 +301,10 @@ export default function EnhancedResults() {
                         </div>
                         
                         <div className="text-sm text-gray-700">
-                          <p><strong>Your Answer:</strong> {String(question.studentAnswer)}</p>
-                          {!question.isCorrect && (
-                            <p><strong>Correct Answer:</strong> {String(question.correctAnswer)}</p>
+                          <p className="mb-1"><strong>Question:</strong> {question.question}</p>
+                          <p className="mb-1"><strong>Your Answer:</strong> {String(question.studentAnswer)}</p>
+                          {!question.isCorrect && question.correctAnswer && question.correctAnswer !== 'Answer not available' && (
+                            <p className="text-green-700"><strong>Correct Answer:</strong> {String(question.correctAnswer)}</p>
                           )}
                         </div>
                       </div>

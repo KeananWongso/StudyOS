@@ -10,7 +10,7 @@ This project has been completely enhanced with a sophisticated AI-assisted manua
 
 ### For Tutors
 - **📝 Review Queue Dashboard**: Manage all pending student submissions with intelligent prioritization
-- **🤖 AI Canvas Analysis**: Get intelligent suggestions for grading student canvas work using Gemini AI
+- **🤖 AI Canvas Analysis**: Get intelligent suggestions for grading student canvas work using OpenAI AI
 - **📊 Comprehensive Analytics**: Track student progress and identify learning gaps across the curriculum
 - **🎯 Curriculum Integration**: Use imported Day 1-10 Cambridge curriculum as single source of truth
 - **💬 Detailed Feedback System**: Provide personalized, question-by-question feedback to students
@@ -103,7 +103,7 @@ Status changes to 'completed' → Student receives tutor-approved feedback → D
 - **Frontend**: Next.js 15.3.3 with App Router, TypeScript, Tailwind CSS
 - **Backend**: Next.js API routes with advanced workflow management
 - **Database**: Firebase Firestore with dual-storage architecture
-- **AI Integration**: Google Gemini API for canvas analysis
+- **AI Integration**: OpenAI API for canvas analysis
 - **Storage**: Firebase Storage for canvas drawings
 - **Charts**: Recharts for data visualization
 - **Icons**: Lucide React
@@ -351,7 +351,7 @@ Answer: Numerical answer
 ### AI-Assisted Grading Workflow
 - `GET /api/review-queue` - Fetch submissions for tutor review
 - `PUT /api/review-queue` - Update submission status and grades
-- `POST /api/analyze-canvas` - AI canvas analysis with Gemini API
+- `POST /api/analyze-canvas` - AI canvas analysis with OpenAI API
 - `POST /api/responses` - Submit assessments (now with review workflow)
 
 ### Assessment Management
@@ -407,7 +407,6 @@ interface StudentResponse {
 
 ### AI Integration
 - **Mock Implementation**: Functional without API key for development
-- **Gemini Ready**: Easy configuration for production AI analysis
 - **Fallback System**: Graceful degradation when AI unavailable
 
 ### Backward Compatibility
